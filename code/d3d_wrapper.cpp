@@ -106,7 +106,7 @@ void logPrintf( const char *fmt, ... )
 //-----------------------------------------
 // Init and shutdown global DLL data
 //=========================================
-
+#if 0
 BOOL APIENTRY DllMain( HANDLE, DWORD ul_reason_for_call, LPVOID )
 {
     switch ( ul_reason_for_call )
@@ -126,3 +126,16 @@ BOOL APIENTRY DllMain( HANDLE, DWORD ul_reason_for_call, LPVOID )
     }
     return TRUE;
 }
+#else
+extern "C" void QindieGL_Init(void)
+{
+	logInit();
+	D3DGlobal_Init(true);
+}
+
+extern "C" void QindieGL_Destroy(void)
+{
+	D3DGlobal_Cleanup(true);
+	logShutdown();
+}
+#endif

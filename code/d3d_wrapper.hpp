@@ -32,14 +32,14 @@
 #include <windows.h>
 
 #include <d3d9.h>
-#include <d3dx9.h>
-#include <dxerr9.h>
+#include <d3dx9math.h>
+#include <dxerr.h>
 
 #define NO_GL_PROTOTYPES
 #include "gl_headers/gl.h"
 #include "gl_headers/glext.h"
 
-#define OPENGL_API
+#define OPENGL_API extern "C"
 
 #define WRAPPER_GL_VENDOR_STRING			"Crystice Softworks (Microsoft Direct3D 9.0c)"
 #define WRAPPER_GL_VERSION_STRING			"1.1"

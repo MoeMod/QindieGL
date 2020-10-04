@@ -149,7 +149,6 @@ typedef struct D3DGlobal_s
 		DWORD				multisample;
 		DWORD				projectionFix;
 		DWORD				texcoordFix;
-		DWORD				useSSE;
 	} settings;
 	struct {
 		GLfloat*			compiledVertexData;
@@ -169,6 +168,5 @@ extern void D3DGlobal_Init( bool clearGlobals );
 extern void D3DGlobal_Cleanup( bool cleanupAll );
 extern const char* D3DGlobal_FormatToString( D3DFORMAT format );
 extern DWORD D3DGlobal_GetRegistryValue( const char *key, const char *section, DWORD defaultValue );
-extern void D3DGlobal_CPU_Detect();
 
 #endif //QINDIEGL_D3D_GLOBAL_H

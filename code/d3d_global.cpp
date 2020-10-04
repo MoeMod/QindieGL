@@ -690,9 +690,6 @@ OPENGL_API HGLRC WINAPI wrap_wglCreateContext( HDC hdc )
 	D3DGlobal.settings.multisample = D3DGlobal_GetRegistryValue( "MultiSample", "Settings", 0 );
 	D3DGlobal.settings.projectionFix = D3DGlobal_GetRegistryValue( "ProjectionFix", "Settings", 0 );
 	D3DGlobal.settings.texcoordFix = D3DGlobal_GetRegistryValue( "TexCoordFix", "Settings", 0 );
-	D3DGlobal.settings.useSSE = D3DGlobal_GetRegistryValue( "UseSSE", "Settings", 0 );
-
-	D3DGlobal_CPU_Detect();
 
 	D3DGlobal.hGLRC = (HGLRC)D3D_CONTEXT_MAGIC;
 
@@ -742,14 +739,14 @@ OPENGL_API HGLRC WINAPI wrap_wglCreateContext( HDC hdc )
 
 	if (FAILED(hr = D3DGlobal.pD3D->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &D3DGlobal.hD3DCaps))) {
 		D3DGlobal.lastError = hr;
-		logPrintf("wglCreateContext: GetDeviceCaps failed with error '%s'\n", DXGetErrorString9(hr));
+		logPrintf("wglCreateContext: GetDeviceCaps failed with error '%s'\n", DXGetErrorString(hr));
 		return 0;
 	}
 
 	// get the format for the desktop mode
 	if (FAILED(hr = D3DGlobal.pD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &D3DGlobal.hDesktopMode))) {
 		D3DGlobal.lastError = hr;
-		logPrintf("wglCreateContext: GetAdapterDisplayMode failed with error '%s'\n", DXGetErrorString9(hr));
+		logPrintf("wglCreateContext: GetAdapterDisplayMode failed with error '%s'\n", DXGetErrorString(hr));
 		return 0;
 	}
 
@@ -785,7 +782,7 @@ OPENGL_API HGLRC WINAPI wrap_wglCreateContext( HDC hdc )
 									   &D3DGlobal.hPresentParams, &D3DGlobal.pDevice );
 
 	if (FAILED(hr)) {
-		logPrintf("wglCreateContext: CreateDevice failed with error '%s'\n", DXGetErrorString9(hr));
+		logPrintf("wglCreateContext: CreateDevice failed with error '%s'\n", DXGetErrorString(hr));
 		logPrintf("wglCreateContext: creating device with hardware vertex processing\n");
 	
 		hr = D3DGlobal.pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DGlobal.hWnd, 
@@ -794,14 +791,14 @@ OPENGL_API HGLRC WINAPI wrap_wglCreateContext( HDC hdc )
 
 		if (FAILED(hr)) {
 			// it's OK, we may not have hardware vp available, so create a software vp device
-			logPrintf("wglCreateContext: CreateDevice failed with error '%s'\n", DXGetErrorString9(hr));
+			logPrintf("wglCreateContext: CreateDevice failed with error '%s'\n", DXGetErrorString(hr));
 			logPrintf("wglCreateContext: creating device with software vertex processing\n");
 
 			hr = D3DGlobal.pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DGlobal.hWnd, 
 											   D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_FPU_PRESERVE | D3DCREATE_DISABLE_DRIVER_MANAGEMENT,
 											   &D3DGlobal.hPresentParams, &D3DGlobal.pDevice );
 			if (FAILED(hr)) {
-				logPrintf("wglCreateContext: CreateDevice failed with error '%s'\n", DXGetErrorString9(hr));
+				logPrintf("wglCreateContext: CreateDevice failed with error '%s'\n", DXGetErrorString(hr));
 				return 0;
 			}
 		}
@@ -814,7 +811,7 @@ OPENGL_API HGLRC WINAPI wrap_wglCreateContext( HDC hdc )
 
 	hr = D3DGlobal.pDevice->GetSwapChain( 0, &D3DGlobal.pSwapChain );
 	if (FAILED(hr)) {
-		logPrintf("wglCreateContext: GetSwapChain failed with error '%s'\n", DXGetErrorString9(hr));
+		logPrintf("wglCreateContext: GetSwapChain failed with error '%s'\n", DXGetErrorString(hr));
 		return 0;
 	}
 	if (nullptr == D3DGlobal.pSwapChain) {
@@ -829,23 +826,23 @@ OPENGL_API HGLRC WINAPI wrap_wglCreateContext( HDC hdc )
 	D3DSURFACE_DESC hDepthStencilDesc;
 	hr = D3DGlobal.pSwapChain->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &lpBackBuffer );
 	if (FAILED(hr)) {
-		logPrintf("wglCreateContext: GetBackBuffer failed with error '%s'\n", DXGetErrorString9(hr));
+		logPrintf("wglCreateContext: GetBackBuffer failed with error '%s'\n", DXGetErrorString(hr));
 		return 0;
 	}
 	hr = lpBackBuffer->GetDesc( &hBackBufferDesc );
 	if (FAILED(hr)) {
-		logPrintf("wglCreateContext: lpBackBuffer->GetDesc failed with error '%s'\n", DXGetErrorString9(hr));
+		logPrintf("wglCreateContext: lpBackBuffer->GetDesc failed with error '%s'\n", DXGetErrorString(hr));
 		return 0;
 	}
 	lpBackBuffer->Release();
 	hr = D3DGlobal.pDevice->GetDepthStencilSurface( &lpDepthStencil );
 	if (FAILED(hr)) {
-		logPrintf("wglCreateContext: GetDepthStencilSurface failed with error '%s'\n", DXGetErrorString9(hr));
+		logPrintf("wglCreateContext: GetDepthStencilSurface failed with error '%s'\n", DXGetErrorString(hr));
 		return 0;
 	}
 	hr = lpDepthStencil->GetDesc( &hDepthStencilDesc );
 	if (FAILED(hr)) {
-		logPrintf("wglCreateContext: lpDepthStencil->GetDesc failed with error '%s'\n", DXGetErrorString9(hr));
+		logPrintf("wglCreateContext: lpDepthStencil->GetDesc failed with error '%s'\n", DXGetErrorString(hr));
 		return 0;
 	}
 	lpDepthStencil->Release();

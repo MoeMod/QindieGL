@@ -60,6 +60,7 @@ static void TexGenFunc_None( int /*stage*/, int coord, const GLfloat* /*vertex*/
 	*output_texcoord = (coord == 3) ? 1.0f : 0.0f;
 }
 
+#ifndef QINDIEGL_SSE
 static void TexGenFunc_ObjectLinear( int stage, int coord, const GLfloat* vertex, const GLfloat* /*normal*/, float *output_texcoord )
 {
 	const float *p = D3DState.TextureState.TexGen[stage][coord].objectPlane;
@@ -69,8 +70,8 @@ static void TexGenFunc_ObjectLinear( int stage, int coord, const GLfloat* vertex
 		out_coord += (*vertex) * (*p);
 	*output_texcoord = out_coord;
 }
-
-static void TexGenFunc_ObjectLinear_SSE( int stage, int coord, const GLfloat* vertex, const GLfloat* /*normal*/, float *output_texcoord )
+#else
+static void TexGenFunc_ObjectLinear( int stage, int coord, const GLfloat* vertex, const GLfloat* /*normal*/, float *output_texcoord )
 {
 	_declspec(align(16)) float sse_vertex[4];
 	_declspec(align(16)) float sse_plane[4];
@@ -92,7 +93,9 @@ static void TexGenFunc_ObjectLinear_SSE( int stage, int coord, const GLfloat* ve
 	}
 	*output_texcoord = out_coord;
 }
+#endif
 
+#ifndef QINDIEGL_SSE
 static void TexGenFunc_EyeLinear( int stage, int coord, const GLfloat* vertex, const GLfloat* /*normal*/, float *output_texcoord )
 {
 	const float *p = D3DState.TextureState.TexGen[stage][coord].eyePlane;
@@ -101,8 +104,8 @@ static void TexGenFunc_EyeLinear( int stage, int coord, const GLfloat* vertex, c
 		out_coord += (*vertex) * (*p);
 	*output_texcoord = out_coord;
 }
-
-static void TexGenFunc_EyeLinear_SSE( int stage, int coord, const GLfloat* vertex, const GLfloat* /*normal*/, float *output_texcoord )
+#else
+static void TexGenFunc_EyeLinear( int stage, int coord, const GLfloat* vertex, const GLfloat* /*normal*/, float *output_texcoord )
 {
 	_declspec(align(16)) float sse_vertex[4];
 	_declspec(align(16)) float sse_plane[4];
@@ -124,7 +127,9 @@ static void TexGenFunc_EyeLinear_SSE( int stage, int coord, const GLfloat* verte
 	}
 	*output_texcoord = out_coord;
 }
+#endif
 
+#ifndef QINDIEGL_SSE
 static void TexGenFunc_SphereMap( int /*stage*/, int coord, const GLfloat* vertex, const GLfloat* normal, float *output_texcoord )
 {
 	if (coord == 3) {
@@ -142,8 +147,8 @@ static void TexGenFunc_SphereMap( int /*stage*/, int coord, const GLfloat* verte
 		*output_texcoord = r[coord]/fdot + 0.5f;
 	}
 }
-
-static void TexGenFunc_SphereMap_SSE( int /*stage*/, int coord, const GLfloat* vertex, const GLfloat* normal, float *output_texcoord )
+#else
+static void TexGenFunc_SphereMap( int /*stage*/, int coord, const GLfloat* vertex, const GLfloat* normal, float *output_texcoord )
 {
 	if (coord == 3) {
 		*output_texcoord = 1.0f;
@@ -200,7 +205,9 @@ static void TexGenFunc_SphereMap_SSE( int /*stage*/, int coord, const GLfloat* v
 		*output_texcoord = out_coord[coord];
 	}
 }
+#endif
 
+#ifndef QINDIEGL_SSE
 static void TexGenFunc_ReflectionMap( int /*stage*/, int coord, const GLfloat* vertex, const GLfloat* normal, float *output_texcoord )
 {
 	if (coord == 3) {
@@ -210,8 +217,8 @@ static void TexGenFunc_ReflectionMap( int /*stage*/, int coord, const GLfloat* v
 		*output_texcoord = vertex[coord] - normal[coord] * fdot;
 	}
 }
-
-static void TexGenFunc_ReflectionMap_SSE( int /*stage*/, int coord, const GLfloat* vertex, const GLfloat* normal, float *output_texcoord )
+#else
+static void TexGenFunc_ReflectionMap( int /*stage*/, int coord, const GLfloat* vertex, const GLfloat* normal, float *output_texcoord )
 {
 	if (coord == 3) {
 		*output_texcoord = 1.0f;
@@ -250,6 +257,7 @@ static void TexGenFunc_ReflectionMap_SSE( int /*stage*/, int coord, const GLfloa
 		*output_texcoord = out_coord[coord];
 	}
 }
+#endif
 
 static void TexGenFunc_NormalMap( int /*stage*/, int coord, const GLfloat* /*vertex*/, const GLfloat* normal, float *output_texcoord )
 {
@@ -264,22 +272,22 @@ void SelectTexGenFunc( int stage, int coord )
 {
 	switch (D3DState.TextureState.TexGen[stage][coord].mode) {
 	case GL_OBJECT_LINEAR:
-		D3DState.TextureState.TexGen[stage][coord].func = (D3DGlobal.settings.useSSE ? TexGenFunc_ObjectLinear_SSE : TexGenFunc_ObjectLinear);
+		D3DState.TextureState.TexGen[stage][coord].func = TexGenFunc_ObjectLinear;
 		D3DState.TextureState.TexGen[stage][coord].trVertex = TrVertexFunc_Copy;
 		D3DState.TextureState.TexGen[stage][coord].trNormal = nullptr;
 		break;
 	case GL_EYE_LINEAR:
-		D3DState.TextureState.TexGen[stage][coord].func = (D3DGlobal.settings.useSSE ? TexGenFunc_EyeLinear_SSE : TexGenFunc_EyeLinear);
+		D3DState.TextureState.TexGen[stage][coord].func = TexGenFunc_EyeLinear;
 		D3DState.TextureState.TexGen[stage][coord].trVertex = TrVertexFunc_TransformByModelview;
 		D3DState.TextureState.TexGen[stage][coord].trNormal = nullptr;
 		break;
 	case GL_SPHERE_MAP:
-		D3DState.TextureState.TexGen[stage][coord].func = (D3DGlobal.settings.useSSE ? TexGenFunc_SphereMap_SSE : TexGenFunc_SphereMap);
+		D3DState.TextureState.TexGen[stage][coord].func = TexGenFunc_SphereMap;
 		D3DState.TextureState.TexGen[stage][coord].trVertex = TrVertexFunc_TransformByModelviewAndNormalize;
 		D3DState.TextureState.TexGen[stage][coord].trNormal = TrNormalFunc_TransformByModelview;
 		break;
 	case GL_REFLECTION_MAP_ARB:
-		D3DState.TextureState.TexGen[stage][coord].func = (D3DGlobal.settings.useSSE ? TexGenFunc_ReflectionMap_SSE : TexGenFunc_ReflectionMap);
+		D3DState.TextureState.TexGen[stage][coord].func = TexGenFunc_ReflectionMap;
 		D3DState.TextureState.TexGen[stage][coord].trVertex = TrVertexFunc_TransformByModelviewAndNormalize;
 		D3DState.TextureState.TexGen[stage][coord].trNormal = TrNormalFunc_TransformByModelview;
 		break;
