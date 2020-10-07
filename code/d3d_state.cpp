@@ -197,7 +197,8 @@ static void D3DState_SetTransform()
 
 	if (D3DState.modelViewMatrixModified) {
 		D3DState.modelViewMatrixModified = false;
-		hr = D3DGlobal.pDevice->SetTransform( D3DTS_WORLD, D3DGlobal.modelviewMatrixStack->top() );
+		D3DMATRIX m = D3DGlobal.modelviewMatrixStack->top();
+		hr = D3DGlobal.pDevice->SetTransform( D3DTS_WORLD, &m );
 		if (FAILED(hr)) {
 			D3DGlobal.lastError = hr;
 			return;
@@ -205,7 +206,8 @@ static void D3DState_SetTransform()
 	}
 	if (D3DState.projectionMatrixModified) {
 		D3DState.projectionMatrixModified = false;
-		hr = D3DGlobal.pDevice->SetTransform( D3DTS_PROJECTION, D3DGlobal.projectionMatrixStack->top() );
+		D3DMATRIX m = D3DGlobal.projectionMatrixStack->top();
+		hr = D3DGlobal.pDevice->SetTransform( D3DTS_PROJECTION, &m);
 		if (FAILED(hr)) {
 			D3DGlobal.lastError = hr;
 			return;
@@ -414,7 +416,8 @@ void D3DState_SetTexture()
 		bool matrixChanged = D3DState.TextureState.textureEnableChanged || D3DState.textureMatrixModified[i];
 		if (matrixChanged) {
 			D3DState.textureMatrixModified[i] = false;
-			hr = D3DGlobal.pDevice->SetTransform( (D3DTRANSFORMSTATETYPE)(D3DTS_TEXTURE0 + currentSampler), D3DGlobal.textureMatrixStack[i]->top() );
+			D3DMATRIX m = D3DGlobal.textureMatrixStack[i]->top();
+			hr = D3DGlobal.pDevice->SetTransform( (D3DTRANSFORMSTATETYPE)(D3DTS_TEXTURE0 + currentSampler), &m );
 			if (FAILED(hr)) {
 				D3DGlobal.lastError = hr;
 				break;
@@ -846,8 +849,9 @@ void D3DState_SetDefaults()
 		D3DGlobal.pDevice->SetTextureStageState( i, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT4 | D3DTTFF_PROJECTED );
 	}
 
-	D3DXMATRIX d3dIdentityMatrix;
-	D3DXMatrixIdentity(&d3dIdentityMatrix);
+	DirectX::XMMATRIX identity = DirectX::XMMatrixIdentity();
+	D3DMATRIX d3dIdentityMatrix;
+	memcpy(d3dIdentityMatrix.m, &identity, sizeof(D3DMATRIX));
 	D3DGlobal.pDevice->SetTransform( D3DTS_WORLD, &d3dIdentityMatrix );
 	D3DGlobal.pDevice->SetTransform( D3DTS_VIEW, &d3dIdentityMatrix );
 	D3DGlobal.pDevice->SetTransform( D3DTS_PROJECTION, &d3dIdentityMatrix );

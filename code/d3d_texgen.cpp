@@ -41,18 +41,30 @@ static void TrVertexFunc_Copy( const GLfloat *vertex, float *output )
 
 static void TrVertexFunc_TransformByModelview( const GLfloat *vertex, float *output )
 {
-	D3DXVec3TransformCoord((D3DXVECTOR3*)output, (D3DXVECTOR3*)vertex, D3DGlobal.modelviewMatrixStack->top());
+	DirectX::XMFLOAT3A temp(vertex);
+	auto res = DirectX::XMVector3TransformCoord(DirectX::XMLoadFloat3A(&temp), D3DGlobal.modelviewMatrixStack->top());
+	output[0] = DirectX::XMVectorGetX(res);
+	output[1] = DirectX::XMVectorGetY(res);
+	output[2] = DirectX::XMVectorGetZ(res);
 }
 
 static void TrVertexFunc_TransformByModelviewAndNormalize( const GLfloat *vertex, float *output )
 {
-	D3DXVec3TransformCoord((D3DXVECTOR3*)output, (D3DXVECTOR3*)vertex, D3DGlobal.modelviewMatrixStack->top());
-	D3DXVec3Normalize((D3DXVECTOR3*)output, (D3DXVECTOR3*)output);
+	DirectX::XMFLOAT3A temp(vertex);
+	auto res = DirectX::XMVector3NormalizeEst(DirectX::XMVector3TransformCoord(DirectX::XMLoadFloat3A(&temp), D3DGlobal.modelviewMatrixStack->top()));
+	output[0] = DirectX::XMVectorGetX(res);
+	output[1] = DirectX::XMVectorGetY(res);
+	output[2] = DirectX::XMVectorGetZ(res);
 }
 
 static void TrNormalFunc_TransformByModelview( const GLfloat *normal, float *output )
 {
-	D3DXVec3TransformNormal((D3DXVECTOR3*)output, (D3DXVECTOR3*)normal, D3DGlobal.modelviewMatrixStack->top().invtrans());
+	DirectX::XMFLOAT3A temp(normal);
+	auto res = DirectX::XMVector3TransformNormal(DirectX::XMLoadFloat3A(&temp), D3DGlobal.modelviewMatrixStack->top().invtrans());
+	output[0] = DirectX::XMVectorGetX(res);
+	output[1] = DirectX::XMVectorGetY(res);
+	output[2] = DirectX::XMVectorGetZ(res);
+	
 }
 
 static void TexGenFunc_None( int /*stage*/, int coord, const GLfloat* /*vertex*/, const GLfloat* /*normal*/, float *output_texcoord )
@@ -320,13 +332,12 @@ static void SetupTexGen( int stage, int coord, GLenum pname, const T *params )
 		break;
 	case GL_EYE_PLANE:
 		{
-			D3DXPLANE d3dxPlane((GLfloat)params[0],(GLfloat)params[1],(GLfloat)params[2],(GLfloat)params[3]);
-			D3DXPLANE d3dxTPlane;
-			D3DXPlaneTransform( &d3dxTPlane, &d3dxPlane, D3DGlobal.modelviewMatrixStack->top().invtrans() );
-			D3DState.TextureState.TexGen[stage][coord].eyePlane[0] = (FLOAT)d3dxTPlane.a;
-			D3DState.TextureState.TexGen[stage][coord].eyePlane[1] = (FLOAT)d3dxTPlane.b;
-			D3DState.TextureState.TexGen[stage][coord].eyePlane[2] = (FLOAT)d3dxTPlane.c;
-			D3DState.TextureState.TexGen[stage][coord].eyePlane[3] = (FLOAT)d3dxTPlane.d;
+			DirectX::XMFLOAT4A d3dxPlane((GLfloat)params[0],(GLfloat)params[1],(GLfloat)params[2],(GLfloat)params[3]);
+			DirectX::XMVECTOR d3dxTPlane = DirectX::XMPlaneTransform(DirectX::XMLoadFloat4A(&d3dxPlane), D3DGlobal.modelviewMatrixStack->top().invtrans());
+			D3DState.TextureState.TexGen[stage][coord].eyePlane[0] = (FLOAT)DirectX::XMVectorGetX(d3dxTPlane);
+			D3DState.TextureState.TexGen[stage][coord].eyePlane[1] = (FLOAT)DirectX::XMVectorGetY(d3dxTPlane);
+			D3DState.TextureState.TexGen[stage][coord].eyePlane[2] = (FLOAT)DirectX::XMVectorGetZ(d3dxTPlane);
+			D3DState.TextureState.TexGen[stage][coord].eyePlane[3] = (FLOAT)DirectX::XMVectorGetW(d3dxTPlane);
 		}
 		break;
 	default:

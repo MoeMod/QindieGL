@@ -32,7 +32,7 @@
 #include <windows.h>
 
 #include <d3d9.h>
-#include <d3dx9math.h>
+#include <DirectXMath.h>
 #include <dxerr.h>
 
 #define NO_GL_PROTOTYPES

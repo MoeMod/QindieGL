@@ -352,49 +352,55 @@ template<typename T> static void glGet( GLenum pname, T *params )
 
 	case GL_MODELVIEW_MATRIX:
 		{
-			D3DMATRIX *pm = D3DGlobal.modelviewMatrixStack->top();
+			DirectX::XMFLOAT4X4A rm;
+			DirectX::XMStoreFloat4x4A(&rm, D3DGlobal.modelviewMatrixStack->top());
 			for (int i = 0; i < 16; i++) {
-				params[i] = (T)pm->m[i/4][i%4];
+				params[i] = (T)rm(i/4, i%4);
 			}
 			return;
 		}
 	case GL_PROJECTION_MATRIX:
 		{
-			D3DMATRIX *pm = D3DGlobal.projectionMatrixStack->top();
+			DirectX::XMFLOAT4X4A rm;
+			DirectX::XMStoreFloat4x4A(&rm, D3DGlobal.projectionMatrixStack->top());
 			for (int i = 0; i < 16; i++) {
-				params[i] = (T)pm->m[i/4][i%4];
+				params[i] = (T)rm(i / 4, i % 4);
 			}
 			return;
 		}
 	case GL_TEXTURE_MATRIX:
 		{
-			D3DMATRIX *pm = D3DGlobal.textureMatrixStack[D3DState.TextureState.currentTMU]->top();
+			DirectX::XMFLOAT4X4A rm;
+			DirectX::XMStoreFloat4x4A(&rm, D3DGlobal.textureMatrixStack[D3DState.TextureState.currentTMU]->top());
 			for (int i = 0; i < 16; i++) {
-				params[i] = (T)pm->m[i/4][i%4];
+				params[i] = (T)rm(i / 4, i % 4);
 			}
 			return;
 		}
 	case GL_TRANSPOSE_MODELVIEW_MATRIX_ARB:
 		{
-			D3DMATRIX *pm = D3DGlobal.modelviewMatrixStack->top();
+			DirectX::XMFLOAT4X4A rm;
+			DirectX::XMStoreFloat4x4A(&rm, D3DGlobal.modelviewMatrixStack->top());
 			for (int i = 0; i < 16; i++) {
-				params[i] = (T)pm->m[i%4][i/4];
+				params[i] = (T)rm(i % 4, i / 4);
 			}
 			return;
 		}
 	case GL_TRANSPOSE_PROJECTION_MATRIX_ARB:
 		{
-			D3DMATRIX *pm = D3DGlobal.projectionMatrixStack->top();
+			DirectX::XMFLOAT4X4A rm;
+			DirectX::XMStoreFloat4x4A(&rm, D3DGlobal.projectionMatrixStack->top());
 			for (int i = 0; i < 16; i++) {
-				params[i] = (T)pm->m[i%4][i/4];
+				params[i] = (T)rm(i % 4, i / 4);
 			}
 			return;
 		}
 	case GL_TRANSPOSE_TEXTURE_MATRIX_ARB:
 		{
-			D3DMATRIX *pm = D3DGlobal.textureMatrixStack[D3DState.TextureState.currentTMU]->top();
+			DirectX::XMFLOAT4X4A rm;
+			DirectX::XMStoreFloat4x4A(&rm, D3DGlobal.textureMatrixStack[D3DState.TextureState.currentTMU]->top());
 			for (int i = 0; i < 16; i++) {
-				params[i] = (T)pm->m[i%4][i/4];
+				params[i] = (T)rm(i % 4, i / 4);
 			}
 			return;
 		}

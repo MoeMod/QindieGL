@@ -32,11 +32,14 @@ public:
 	void set_dirty();
 	void set_identity();
 
-	operator D3DXMATRIX *()				{ return &m_matrix; }
-	operator const D3DXMATRIX *() const	{ return &m_matrix; }
-	const D3DXMATRIX *inverse() 		{ check_inverse(); return &m_inverse; }
-	const D3DXMATRIX *transpose() 		{ check_transpose(); return &m_transpose; }
-	const D3DXMATRIX *invtrans()		{ check_invtrans(); return &m_invtrans; }
+	operator DirectX::XMMATRIX &()				{ return m_matrix; }
+	operator const DirectX::XMMATRIX &() const	{ return m_matrix; }
+	const DirectX::XMMATRIX &inverse() 		{ check_inverse(); return m_inverse; }
+	const DirectX::XMMATRIX &transpose() 		{ check_transpose(); return m_transpose; }
+	const DirectX::XMMATRIX &invtrans()		{ check_invtrans(); return m_invtrans; }
+	D3DStateMatrix& operator=(const DirectX::XMMATRIX &m) { m_matrix = DirectX::XMMATRIX(m); set_dirty(); return *this; }
+	D3DStateMatrix& operator=(const D3DStateMatrix& m) = default;
+	operator D3DMATRIX() const;
 
 private:
 	void check_inverse();
@@ -44,10 +47,10 @@ private:
 	void check_invtrans();
 
 private:
-	D3DXMATRIX	m_matrix;
-	D3DXMATRIX	m_inverse;
-	D3DXMATRIX	m_transpose;
-	D3DXMATRIX	m_invtrans;
+	DirectX::XMMATRIX	m_matrix;
+	DirectX::XMMATRIX	m_inverse;
+	DirectX::XMMATRIX	m_transpose;
+	DirectX::XMMATRIX	m_invtrans;
 	BOOL		m_inverse_dirty;
 	BOOL		m_transpose_dirty;
 	BOOL		m_invtrans_dirty;
@@ -66,8 +69,8 @@ public:
 	int max_stack_depth() const			{ return D3D_MAX_MATRIX_STACK_DEPTH; }
 
 	void load_identity();
-	void load( const GLfloat *m );
-	void multiply( const GLfloat *m );
+	void load(DirectX::XMMATRIX m);
+	void multiply(DirectX::XMMATRIX m);
 
 	HRESULT push();
 	HRESULT pop();

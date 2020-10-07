@@ -18,6 +18,8 @@
 * along with this program; if not, write to the Free Software 
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 ***************************************************************************/
+#include <algorithm>
+
 #include "d3d_wrapper.hpp"
 #include "d3d_global.hpp"
 #include "d3d_state.hpp"
@@ -98,30 +100,30 @@ OPENGL_API void WINAPI glLoadIdentity()
 	CheckTexCoordOffset_Hack( false );
 }
 
-static void ProjectionMatrix_GLtoD3D( FLOAT *m )
+static void ProjectionMatrix_GLtoD3D(DirectX::XMFLOAT4X4 &m )
 {
-	if( m[2*4+3] >= 0 ) {
+	if( m(2, 3) >= 0 ) {
 		//2D projection
 		//Restore znear and zfar from projection matrix
-		GLfloat fC = m[2*4+2];
-		GLfloat fD = m[3*4+2];
+		GLfloat fC = m(2, 2);
+		GLfloat fD = m(3, 2);
 		GLfloat fQ =( fD + 1.0f ) /( fD - 1.0f );
 		GLfloat zF = 2.0f /( fC *( fQ - 1.0f ) );
 		GLfloat zN =( 2.0f / fC ) + zF;
 		//Convert GL ortho projection to D3D
-		m[2*4+2] *= 0.5f;
-		m[3*4+2] -= zF /( zN - zF );
+		m(2, 2) *= 0.5f;
+		m(3, 2) -= zF /( zN - zF );
 	} else {
 		//3D projection
 		//Restore znear and zfar from projection matrix
-		GLfloat fC = m[2*4+2];
-		GLfloat fD = m[3*4+2];
+		GLfloat fC = m(2, 2);
+		GLfloat fD = m(3, 2);
 		GLfloat fQ =( 1.0f + fC ) /( 1.0f - fC );
 		GLfloat zF =( fD *( 1.0f + fQ ) ) /( 2.0f * fQ );
 		GLfloat zN =( fD * zF ) /( fD - 2.0f*zF );
 		//Convert GL perspective projection to D3D
-		m[2*4+2] -= zN /( zN - zF );
-		m[3*4+2] *= 0.5f;
+		m(2, 2) -= zN /( zN - zF );
+		m(3, 2) *= 0.5f;
 	}
 }
 
@@ -129,63 +131,54 @@ OPENGL_API void WINAPI glLoadMatrixf( const GLfloat *m )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	bool b2Dproj = false;
+	DirectX::XMMATRIX mt(m);
 	if( D3DGlobal.settings.projectionFix ) {
-		D3DXMATRIX m2( m );
 		if( D3DState.TransformState.matrixMode == GL_PROJECTION ) {
-			b2Dproj =( m2[2*4+3] >= 0 );
-			ProjectionMatrix_GLtoD3D( m2 );
+			DirectX::XMFLOAT4X4A mt4;
+			DirectX::XMStoreFloat4x4A(&mt4, mt);
+			b2Dproj =(mt4(2, 3) >= 0 );
+			ProjectionMatrix_GLtoD3D(mt4);
+			mt = DirectX::XMLoadFloat4x4A(&mt4);
 		}
-		D3DState.currentMatrixStack->load( m2 );
+		D3DState.currentMatrixStack->load(mt);
 	} else {
-		D3DState.currentMatrixStack->load( m );
+		D3DState.currentMatrixStack->load(mt);
 	}
 	*D3DState.currentMatrixModified = true;
 	CheckTexCoordOffset_Hack( b2Dproj );
 }
 OPENGL_API void WINAPI glLoadMatrixd( const GLdouble *m )
 {
-	if( !D3DState.currentMatrixStack ) return;
-	bool b2Dproj = false;
 	FLOAT mf[16];
-	for( int i = 0; i < 16; ++i ) 
-		mf[i] =(FLOAT)m[i];
-	if( D3DGlobal.settings.projectionFix ) {
-		if( D3DState.TransformState.matrixMode == GL_PROJECTION ) {
-			b2Dproj =( mf[2*4+3] >= 0 );
-			ProjectionMatrix_GLtoD3D( mf );
-		}
-	}
-	D3DState.currentMatrixStack->load( mf );
-	*D3DState.currentMatrixModified = true;
-	CheckTexCoordOffset_Hack( b2Dproj );
+	std::copy_n(m, 16, mf);
+	return glLoadMatrixf(mf);
 }
 OPENGL_API void WINAPI glMultMatrixf( const GLfloat *m )
 {
 	if( !D3DState.currentMatrixStack ) return;
-	D3DState.currentMatrixStack->multiply( m );
+	D3DState.currentMatrixStack->multiply(DirectX::XMMATRIX(m));
 	*D3DState.currentMatrixModified = true;
 	CheckTexCoordOffset_Hack( false );
 }
 OPENGL_API void WINAPI glMultMatrixd( const GLdouble *m )
 {
-	if( !D3DState.currentMatrixStack ) return;
 	FLOAT mf[16];
-	for( int i = 0; i < 16; ++i ) 
-		mf[i] =(FLOAT)m[i];
-	D3DState.currentMatrixStack->multiply( mf );
-	*D3DState.currentMatrixModified = true;
-	CheckTexCoordOffset_Hack( false );
+	std::copy_n(m, 16, mf);
+	return glMultMatrixf(mf);
 }
 OPENGL_API void WINAPI glLoadTransposeMatrixf( const GLfloat *m )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	bool b2Dproj = false;
-	D3DXMATRIX mt;
-	D3DXMatrixTranspose( &mt,(D3DXMATRIX*)m );
+	DirectX::XMMATRIX mt = DirectX::XMMatrixTranspose(DirectX::XMMATRIX(m));
+	
 	if( D3DGlobal.settings.projectionFix ) {
 		if( D3DState.TransformState.matrixMode == GL_PROJECTION ) {
-			b2Dproj =( mt[2*4+3] >= 0 );
-			ProjectionMatrix_GLtoD3D( mt );
+			DirectX::XMFLOAT4X4A mt4;
+			DirectX::XMStoreFloat4x4A(&mt4, mt);
+			b2Dproj =( mt4(2,3) >= 0 );
+			ProjectionMatrix_GLtoD3D(mt4);
+			mt = DirectX::XMLoadFloat4x4A(&mt4);
 		}
 	}
 	D3DState.currentMatrixStack->load( mt );
@@ -194,47 +187,29 @@ OPENGL_API void WINAPI glLoadTransposeMatrixf( const GLfloat *m )
 }
 OPENGL_API void WINAPI glLoadTransposeMatrixd( const GLdouble *m )
 {
-	if( !D3DState.currentMatrixStack ) return;
-	bool b2Dproj = false;
-	D3DXMATRIX mt;
-	for( int i = 0; i < 4; ++i ) 
-		for( int j = 0; j < 4; ++i ) 
-			mt.m[i][j] =(FLOAT)m[i*4+j];
-	if( D3DGlobal.settings.projectionFix ) {
-		if( D3DState.TransformState.matrixMode == GL_PROJECTION ) {
-			b2Dproj =( mt[2*4+3] >= 0 );
-			ProjectionMatrix_GLtoD3D( mt );
-		}
-	}
-	D3DState.currentMatrixStack->load( mt );
-	*D3DState.currentMatrixModified = true;
-	CheckTexCoordOffset_Hack( b2Dproj );
+	FLOAT mf[16];
+	std::copy_n(m, 16, mf);
+	return glLoadTransposeMatrixf(mf);
 }
 OPENGL_API void WINAPI glMultTransposeMatrixf( const GLfloat *m )
 {
 	if( !D3DState.currentMatrixStack ) return;
-	D3DXMATRIX mt;
-	D3DXMatrixTranspose( &mt,(D3DXMATRIX*)m );
+	DirectX::XMMATRIX mt = DirectX::XMMatrixTranspose(DirectX::XMMATRIX(m));
+	
 	D3DState.currentMatrixStack->multiply( mt );
 	*D3DState.currentMatrixModified = true;
 	CheckTexCoordOffset_Hack( false );
 }
 OPENGL_API void WINAPI glMultTransposeMatrixd( const GLdouble *m )
 {
-	if( !D3DState.currentMatrixStack ) return;
-	D3DXMATRIX mt;
-	for( int i = 0; i < 4; ++i ) 
-		for( int j = 0; j < 4; ++i ) 
-			mt.m[i][j] =(FLOAT)m[i*4+j];
-	D3DState.currentMatrixStack->multiply( mt );
-	*D3DState.currentMatrixModified = true;
-	CheckTexCoordOffset_Hack( false );
+	FLOAT mf[16];
+	std::copy_n(m, 16, mf);
+	return glMultTransposeMatrixf(mf);
 }
 OPENGL_API void WINAPI glFrustum( GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar )
 {
 	if( !D3DState.currentMatrixStack ) return;
-	D3DXMATRIX m;
-	D3DXMatrixPerspectiveOffCenterRH( &m,(FLOAT)left,(FLOAT)right,(FLOAT)bottom,(FLOAT)top,(FLOAT)zNear,(FLOAT)zFar );
+	DirectX::XMMATRIX m = DirectX::XMMatrixPerspectiveOffCenterRH((FLOAT)left, (FLOAT)right, (FLOAT)bottom, (FLOAT)top, (FLOAT)zNear, (FLOAT)zFar);
 	D3DState.currentMatrixStack->multiply( m );
 	*D3DState.currentMatrixModified = true;
 	CheckTexCoordOffset_Hack( false );
@@ -242,8 +217,7 @@ OPENGL_API void WINAPI glFrustum( GLdouble left, GLdouble right, GLdouble bottom
 OPENGL_API void WINAPI glOrtho( GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar )
 {
 	if( !D3DState.currentMatrixStack ) return;
-	D3DXMATRIX m;
-	D3DXMatrixOrthoOffCenterRH( &m,(FLOAT)left,(FLOAT)right,(FLOAT)bottom,(FLOAT)top,(FLOAT)zNear,(FLOAT)zFar );
+	DirectX::XMMATRIX m = DirectX::XMMatrixOrthographicOffCenterRH((FLOAT)left, (FLOAT)right, (FLOAT)bottom, (FLOAT)top, (FLOAT)zNear, (FLOAT)zFar);
 	D3DState.currentMatrixStack->multiply( m );
 	*D3DState.currentMatrixModified = true;
 	CheckTexCoordOffset_Hack( true );
@@ -264,50 +238,33 @@ OPENGL_API void WINAPI glPushMatrix( void )
 OPENGL_API void WINAPI glRotatef( GLfloat angle, GLfloat x, GLfloat y, GLfloat z )
 {
 	if( !D3DState.currentMatrixStack ) return;
-	D3DXMATRIX m;
-	D3DXVECTOR3 v( x,y,z );
-	D3DXMatrixRotationAxis( &m, &v, D3DXToRadian( angle ) );
+	DirectX::XMMATRIX m = DirectX::XMMatrixRotationAxis(DirectX::XMVectorSet(x, y, z, 0), DirectX::XMConvertToRadians(angle));
 	D3DState.currentMatrixStack->multiply( m );
 	*D3DState.currentMatrixModified = true;
 }
 OPENGL_API void WINAPI glRotated( GLdouble angle, GLdouble x, GLdouble y, GLdouble z )
 {
-	if( !D3DState.currentMatrixStack ) return;
-	D3DXMATRIX m;
-	D3DXVECTOR3 v( (FLOAT)x,(FLOAT)y,(FLOAT)z );
-	D3DXMatrixRotationAxis( &m, &v, D3DXToRadian( (FLOAT)angle ) );
-	D3DState.currentMatrixStack->multiply( m );
-	*D3DState.currentMatrixModified = true;
+	return glRotatef((FLOAT)angle, (FLOAT)x, (FLOAT)y, (FLOAT)z);
 }
 OPENGL_API void WINAPI glScalef( GLfloat x, GLfloat y, GLfloat z )
 {
 	if( !D3DState.currentMatrixStack ) return;
-	D3DXMATRIX m;
-	D3DXMatrixScaling( &m, x, y, z );
+	DirectX::XMMATRIX m = DirectX::XMMatrixScaling(x, y, z);
 	D3DState.currentMatrixStack->multiply( m );
 	*D3DState.currentMatrixModified = true;
 }
 OPENGL_API void WINAPI glScaled( GLdouble x, GLdouble y, GLdouble z )
 {
-	if( !D3DState.currentMatrixStack ) return;
-	D3DXMATRIX m;
-	D3DXMatrixScaling( &m,(FLOAT)x,(FLOAT)y,(FLOAT)z );
-	D3DState.currentMatrixStack->multiply( m );
-	*D3DState.currentMatrixModified = true;
+	return glScalef((FLOAT)x, (FLOAT)y, (FLOAT)z);
 }
 OPENGL_API void WINAPI glTranslatef( GLfloat x, GLfloat y, GLfloat z )
 {
 	if( !D3DState.currentMatrixStack ) return;
-	D3DXMATRIX m;
-	D3DXMatrixTranslation( &m, x, y, z );
+	DirectX::XMMATRIX m = DirectX::XMMatrixTranslation(x, y, z);
 	D3DState.currentMatrixStack->multiply( m );
 	*D3DState.currentMatrixModified = true;
 }
 OPENGL_API void WINAPI glTranslated( GLdouble x, GLdouble y, GLdouble z )
 {
-	if( !D3DState.currentMatrixStack ) return;
-	D3DXMATRIX m;
-	D3DXMatrixTranslation( &m,(FLOAT)x,(FLOAT)y,(FLOAT)z );
-	D3DState.currentMatrixStack->multiply( m );
-	*D3DState.currentMatrixModified = true;
+	return glTranslatef((FLOAT)x, (FLOAT)y, (FLOAT)z);
 }

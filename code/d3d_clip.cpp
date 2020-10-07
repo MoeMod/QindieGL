@@ -38,14 +38,16 @@ OPENGL_API void WINAPI glClipPlane( GLenum plane,  const GLdouble *equation )
 		return;
 	}
 
-	D3DXPLANE d3dxPlane((GLfloat)equation[0],
-						(GLfloat)equation[1],
-						(GLfloat)equation[2],
-						(GLfloat)equation[3]);
-	D3DXPLANE d3dxTPlane;
-	D3DXPlaneTransform( &d3dxTPlane, &d3dxPlane, D3DGlobal.modelviewMatrixStack->top().invtrans() );
+	DirectX::XMFLOAT4A d3dxPlane((GLfloat)equation[0],
+	                            (GLfloat)equation[1],
+	                            (GLfloat)equation[2],
+	                            (GLfloat)equation[3]);
+
 	
-	memcpy( D3DState.TransformState.clipPlane[planeIndex], &d3dxTPlane, sizeof(D3DXPLANE));
+	
+	DirectX::XMVECTOR d3dxTPlane = DirectX::XMPlaneTransform(DirectX::XMLoadFloat4A(&d3dxPlane), D3DGlobal.modelviewMatrixStack->top().invtrans());
+	
+	memcpy( D3DState.TransformState.clipPlane[planeIndex], &d3dxTPlane, sizeof(d3dxTPlane));
 	D3DState.TransformState.clipPlaneModified[planeIndex] = TRUE;
 
 	if (D3DState.EnableState.clipPlaneEnableMask & (1 << planeIndex))

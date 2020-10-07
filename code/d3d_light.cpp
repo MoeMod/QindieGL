@@ -205,37 +205,39 @@ OPENGL_API void WINAPI glLightfv( GLenum light, GLenum pname, const GLfloat *par
 		break;
 	case GL_POSITION:
 		{
-			D3DXVECTOR3 lpos;
-			D3DXVECTOR3 lresult;
-			lpos.x = params[0];
-			lpos.y = params[1];
-			lpos.z = params[2];
+			DirectX::XMVECTORF32 lpos;
+			DirectX::XMVECTORF32 lresult;
+			lpos.f[0] = params[0];
+			lpos.f[1] = params[1];
+			lpos.f[2] = params[2];
 			
 			if( params[3] == 0.0f ) {
-				D3DXVec3TransformNormal( &lresult, &lpos, D3DGlobal.modelviewMatrixStack->top( ) );
+				lresult.v = DirectX::XMVector3TransformNormal(lpos, D3DGlobal.modelviewMatrixStack->top());
 				D3DState.LightingState.lightType[lightIndex] = D3DLIGHT_DIRECTIONAL;
-				D3DState.LightingState.lightPosition[lightIndex].x = -lresult.x;
-				D3DState.LightingState.lightPosition[lightIndex].y = -lresult.y;
-				D3DState.LightingState.lightPosition[lightIndex].z = -lresult.z;
+				D3DState.LightingState.lightPosition[lightIndex].x = -lresult[0];
+				D3DState.LightingState.lightPosition[lightIndex].y = -lresult[1];
+				D3DState.LightingState.lightPosition[lightIndex].z = -lresult[2];
 			} else {
-				lpos.x /= params[3];
-				lpos.y /= params[3];
-				lpos.z /= params[3];
-				D3DXVec3TransformCoord( &lresult, &lpos, D3DGlobal.modelviewMatrixStack->top( ) );
+				lpos.f[0] /= params[3];
+				lpos.f[1] /= params[3];
+				lpos.f[2] /= params[3];
+				lresult.v = DirectX::XMVector3TransformCoord(lpos, D3DGlobal.modelviewMatrixStack->top());
 				D3DState.LightingState.lightType[lightIndex] = D3DLIGHT_POINT;
-				D3DState.LightingState.lightPosition[lightIndex].x = lresult.x;
-				D3DState.LightingState.lightPosition[lightIndex].y = lresult.y;
-				D3DState.LightingState.lightPosition[lightIndex].z = lresult.z;
+				D3DState.LightingState.lightPosition[lightIndex].x = lresult[0];
+				D3DState.LightingState.lightPosition[lightIndex].y = lresult[1];
+				D3DState.LightingState.lightPosition[lightIndex].z = lresult[2];
 			}
 		}
 		break;
 	case GL_SPOT_DIRECTION:
 		{
-			D3DXVECTOR3 lpos;
-			lpos.x = params[0];
-			lpos.y = params[1];
-			lpos.z = params[2];
-			D3DXVec3TransformNormal( &D3DState.LightingState.lightDirection[lightIndex], &lpos, D3DGlobal.modelviewMatrixStack->top( ) );
+			DirectX::XMVECTORF32 lpos;
+			lpos.f[0] = params[0];
+			lpos.f[1] = params[1];
+			lpos.f[2] = params[2];
+			DirectX::XMVECTORF32 res;
+			res.v = DirectX::XMVector3TransformNormal(lpos, D3DGlobal.modelviewMatrixStack->top());
+			D3DState.LightingState.lightDirection[lightIndex] = { res[0], res[1], res[2] };
 		}
 		break;
 	case GL_CONSTANT_ATTENUATION:

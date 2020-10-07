@@ -100,8 +100,8 @@ typedef struct D3DState_s
 		D3DCOLORVALUE	lightColorAmbient[IMPL_MAX_LIGHTS];
 		D3DCOLORVALUE	lightColorDiffuse[IMPL_MAX_LIGHTS];
 		D3DCOLORVALUE	lightColorSpecular[IMPL_MAX_LIGHTS];
-		D3DXVECTOR3		lightPosition[IMPL_MAX_LIGHTS];
-		D3DXVECTOR3		lightDirection[IMPL_MAX_LIGHTS];
+		D3DVECTOR		lightPosition[IMPL_MAX_LIGHTS];
+		D3DVECTOR		lightDirection[IMPL_MAX_LIGHTS];
 		D3DVECTOR		lightAttenuation[IMPL_MAX_LIGHTS];
 		FLOAT			lightSpotExponent[IMPL_MAX_LIGHTS];
 		FLOAT			lightSpotCutoff[IMPL_MAX_LIGHTS];

@@ -36,6 +36,7 @@ void D3DStateMatrix :: set_dirty()
 
 void D3DStateMatrix :: set_identity()
 {
+	m_matrix = DirectX::XMMatrixIdentity();
 	m_inverse_dirty = TRUE;
 	m_transpose_dirty = TRUE;
 	m_invtrans_dirty = TRUE;
@@ -46,9 +47,9 @@ void D3DStateMatrix :: check_inverse()
 {
 	if (m_inverse_dirty) {
 		if (m_identity) {
-			memcpy( m_inverse, m_matrix, sizeof(D3DXMATRIX) );
+			m_inverse = m_matrix;
 		} else {
-			D3DXMatrixInverse( &m_inverse, nullptr, &m_matrix );
+			m_inverse = DirectX::XMMatrixInverse( nullptr, m_matrix );
 		}
 		m_inverse_dirty = FALSE;
 	}
@@ -58,9 +59,9 @@ void D3DStateMatrix :: check_transpose()
 {
 	if (m_transpose_dirty) {
 		if (m_identity) {
-			memcpy( m_transpose, m_matrix, sizeof(D3DXMATRIX) );
+			m_transpose = m_matrix;
 		} else {
-			D3DXMatrixTranspose( &m_transpose, &m_matrix );
+			m_transpose = DirectX::XMMatrixTranspose(m_matrix);
 		}
 		m_transpose_dirty = FALSE;
 	}
@@ -70,10 +71,10 @@ void D3DStateMatrix :: check_invtrans()
 {
 	if (m_invtrans_dirty) {
 		if (m_identity) {
-			memcpy( m_invtrans, m_matrix, sizeof(D3DXMATRIX) );
+			m_invtrans = m_matrix;
 		} else {
 			check_inverse();
-			D3DXMatrixTranspose( &m_invtrans, &m_inverse );
+			m_invtrans = XMMatrixTranspose(m_inverse);
 		}
 		m_invtrans_dirty = FALSE;
 	}
@@ -84,29 +85,23 @@ void D3DStateMatrix :: check_invtrans()
 D3DMatrixStack :: D3DMatrixStack() : m_iStackDepth( 0 )
 {
 	for ( int i = 0; i < D3D_MAX_MATRIX_STACK_DEPTH; ++i) {
-		D3DXMatrixIdentity( m_Stack[i] );
 		m_Stack[i].set_identity();
 	}
 }
 
 void D3DMatrixStack :: load_identity()
 {
-	D3DXMatrixIdentity( this->top() );
 	this->top().set_identity();
 }
 
-void D3DMatrixStack :: load( const GLfloat *m )
+void D3DMatrixStack :: load(DirectX::XMMATRIX m )
 {
-	memcpy( this->top(), m, sizeof(GLfloat)*16 );
-	this->top().set_dirty();
+	this->top() = m;
 }
 
-void D3DMatrixStack :: multiply( const GLfloat *m )
+void D3DMatrixStack::multiply(DirectX::XMMATRIX m)
 {
-	FLOAT temp[16];
-	memcpy( temp, m, sizeof(FLOAT)*16 );
-	D3DXMatrixMultiply( this->top(), (D3DXMATRIX*)temp, this->top() );
-	this->top().set_dirty();
+	this->top() = DirectX::XMMatrixMultiply(m, this->top());
 }
 
 HRESULT D3DMatrixStack :: push()
@@ -114,7 +109,7 @@ HRESULT D3DMatrixStack :: push()
 	if (m_iStackDepth == (D3D_MAX_MATRIX_STACK_DEPTH-1))
 		return E_STACK_OVERFLOW;
 	++m_iStackDepth;
-	memcpy(	this->m_Stack[m_iStackDepth], this->m_Stack[m_iStackDepth-1], sizeof(D3DStateMatrix) );
+	this->m_Stack[m_iStackDepth] = this->m_Stack[m_iStackDepth - 1];
 	return S_OK;
 }
 
@@ -124,4 +119,13 @@ HRESULT D3DMatrixStack :: pop()
 		return E_STACK_UNDERFLOW;
 	--m_iStackDepth;
 	return S_OK;
+}
+
+D3DStateMatrix::operator D3DMATRIX() const
+{
+	DirectX::XMFLOAT4X4A temp;
+	DirectX::XMStoreFloat4x4A(&temp, m_matrix);
+	D3DMATRIX m;
+	memcpy(&m, temp.m, sizeof(D3DMATRIX));
+	return m;
 }

@@ -87,6 +87,18 @@ OPENGL_API void WINAPI glClientActiveTextureARB(GLenum texture)
 {
 	return glClientActiveTexture(texture);
 }
+OPENGL_API void WINAPI glSelectTextureSGIS(GLenum texture)
+{
+	return glSelectTexture(texture);
+}
+OPENGL_API void WINAPI glMTexCoord2fSGIS(GLenum target, GLfloat s, GLfloat t)
+{
+	return glMTexCoord2f(target, s, t);
+}
+OPENGL_API void WINAPI glMTexCoord2fvSGIS(GLenum target, const GLfloat* v)
+{
+	return glMTexCoord2fv(target, v);
+}
 
 static glext_entry_point_t glext_EntryPoints[] =
 {
