@@ -640,7 +640,7 @@ static bool D3DGlobal_SetupPresentParams( int width, int height, int bpp, BOOL w
 
 #define D3D_CONTEXT_MAGIC	0xBEEF
 
-OPENGL_API HGLRC WINAPI wrap_wglCreateContext( HDC hdc )
+OPENGL_API HGLRC wrap_wglCreateContext( HDC hdc )
 {
 	//logPrintf("wrap_wglCreateContext( %x )\n", hdc);
 
@@ -890,7 +890,7 @@ OPENGL_API HGLRC WINAPI wrap_wglCreateContext( HDC hdc )
 	return D3DGlobal.hGLRC;
 }
 
-OPENGL_API BOOL WINAPI wrap_wglDeleteContext( HGLRC hglrc )
+OPENGL_API BOOL wrap_wglDeleteContext( HGLRC hglrc )
 {
 	if (!D3DGlobal.hGLRC && ((HGLRC)D3D_CONTEXT_MAGIC == hglrc)) {
 		logPrintf("wglDeleteContext: called twice, skipping second call\n");
@@ -911,17 +911,17 @@ OPENGL_API BOOL WINAPI wrap_wglDeleteContext( HGLRC hglrc )
 	return TRUE;
 }
 
-OPENGL_API HGLRC WINAPI wrap_wglGetCurrentContext()
+OPENGL_API HGLRC wrap_wglGetCurrentContext()
 {
 	return D3DGlobal.hGLRC;
 }
 
-OPENGL_API HDC WINAPI wrap_wglGetCurrentDC()
+OPENGL_API HDC wrap_wglGetCurrentDC()
 {
 	return D3DGlobal.hDC;
 }
 
-OPENGL_API BOOL WINAPI wrap_wglMakeCurrent(HDC hdc, HGLRC hglrc)
+OPENGL_API BOOL wrap_wglMakeCurrent(HDC hdc, HGLRC hglrc)
 {
 	//logPrintf("wrap_wglMakeCurrent( %x, %x )\n", hdc, hglrc);
 
@@ -981,7 +981,7 @@ OPENGL_API BOOL WINAPI wrap_wglMakeCurrent(HDC hdc, HGLRC hglrc)
 	return TRUE;
 }
 
-OPENGL_API BOOL WINAPI wrap_wglSwapBuffers( HDC )
+OPENGL_API BOOL wrap_wglSwapBuffers( HDC )
 {
 	if (!D3DGlobal.hGLRC)
 		return FALSE;
@@ -1125,7 +1125,7 @@ static void DumpPixelFormat( PIXELFORMATDESCRIPTOR *pfd )
 }
 #endif
 
-OPENGL_API int WINAPI wrap_wglChoosePixelFormat( HDC, PIXELFORMATDESCRIPTOR *pfd ) 
+OPENGL_API int wrap_wglChoosePixelFormat( HDC, PIXELFORMATDESCRIPTOR *pfd ) 
 { 
 	if ( pfd ) {
 		s_d3dPixelFormat.cColorBits = pfd->cColorBits;
@@ -1135,90 +1135,90 @@ OPENGL_API int WINAPI wrap_wglChoosePixelFormat( HDC, PIXELFORMATDESCRIPTOR *pfd
 	return 0;
 }
 
-OPENGL_API int WINAPI wrap_wglDescribePixelFormat( HDC, int, UINT, LPPIXELFORMATDESCRIPTOR pfd ) 
+OPENGL_API int wrap_wglDescribePixelFormat( HDC, int, UINT, LPPIXELFORMATDESCRIPTOR pfd ) 
 { 
 	if ( pfd ) memcpy( pfd, &s_d3dPixelFormat, sizeof(s_d3dPixelFormat) );
 	return 1;
 }
 
-OPENGL_API int WINAPI wrap_wglGetPixelFormat( HDC ) 
+OPENGL_API int wrap_wglGetPixelFormat( HDC ) 
 { 
 	return 1;
 }
 
-OPENGL_API BOOL WINAPI wrap_wglSetPixelFormat( HDC, int, CONST PIXELFORMATDESCRIPTOR* ) 
+OPENGL_API BOOL wrap_wglSetPixelFormat( HDC, int, CONST PIXELFORMATDESCRIPTOR* ) 
 { 
 	// just silently pass the PFD through unmodified
 	return TRUE;
 }
 
-OPENGL_API BOOL WINAPI wrap_wglCopyContext( HGLRC, HGLRC, UINT )
+OPENGL_API BOOL wrap_wglCopyContext( HGLRC, HGLRC, UINT )
 {
 	return FALSE;
 }
 
-OPENGL_API HGLRC WINAPI wrap_wglCreateLayerContext( HDC, int )
+OPENGL_API HGLRC wrap_wglCreateLayerContext( HDC, int )
 {
 	return (HGLRC)0;
 }
 
-OPENGL_API BOOL WINAPI wrap_wglDescribeLayerPlane( HDC, int, int, UINT, LPLAYERPLANEDESCRIPTOR )
+OPENGL_API BOOL wrap_wglDescribeLayerPlane( HDC, int, int, UINT, LPLAYERPLANEDESCRIPTOR )
 {
 	return FALSE;
 }
 
-OPENGL_API int WINAPI wrap_wglGetLayerPaletteEntries( HDC, int, int, int, COLORREF* )
+OPENGL_API int wrap_wglGetLayerPaletteEntries( HDC, int, int, int, COLORREF* )
 {
 	return 0;
 }
 
-OPENGL_API int WINAPI wrap_wglSetLayerPaletteEntries( HDC, int, int, int, CONST COLORREF* )
+OPENGL_API int wrap_wglSetLayerPaletteEntries( HDC, int, int, int, CONST COLORREF* )
 {
 	return 0;
 }
 
-OPENGL_API BOOL WINAPI wrap_wglRealizeLayerPalette( HDC, int, BOOL )
+OPENGL_API BOOL wrap_wglRealizeLayerPalette( HDC, int, BOOL )
 {
 	return FALSE;
 }
 
-OPENGL_API BOOL WINAPI wrap_wglSwapLayerBuffers( HDC, UINT )
+OPENGL_API BOOL wrap_wglSwapLayerBuffers( HDC, UINT )
 {
 	return FALSE;
 }
 
-OPENGL_API BOOL WINAPI wrap_wglShareLists( HGLRC, HGLRC )
+OPENGL_API BOOL wrap_wglShareLists( HGLRC, HGLRC )
 {
 	return TRUE;
 }
-OPENGL_API BOOL WINAPI wrap_wglUseFontBitmapsA( HDC, DWORD, DWORD, DWORD )
+OPENGL_API BOOL wrap_wglUseFontBitmapsA( HDC, DWORD, DWORD, DWORD )
 {
 	logPrintf("WARNING: wglUseFontBitmapsA is not supported\n");
 	return FALSE;
 }
-OPENGL_API BOOL WINAPI wrap_wglUseFontBitmapsW( HDC, DWORD, DWORD, DWORD )
+OPENGL_API BOOL wrap_wglUseFontBitmapsW( HDC, DWORD, DWORD, DWORD )
 {
 	logPrintf("WARNING: wglUseFontBitmapsW is not supported\n");
 	return FALSE;
 }
 
-OPENGL_API BOOL WINAPI wrap_wglUseFontOutlinesA( HDC, DWORD, DWORD, DWORD, FLOAT, FLOAT, int, LPGLYPHMETRICSFLOAT )
+OPENGL_API BOOL wrap_wglUseFontOutlinesA( HDC, DWORD, DWORD, DWORD, FLOAT, FLOAT, int, LPGLYPHMETRICSFLOAT )
 {
 	logPrintf("WARNING: wglUseFontOutlinesA is not supported\n");
 	return FALSE;
 }
-OPENGL_API BOOL WINAPI wrap_wglUseFontOutlinesW( HDC, DWORD, DWORD, DWORD, FLOAT, FLOAT, int, LPGLYPHMETRICSFLOAT )
+OPENGL_API BOOL wrap_wglUseFontOutlinesW( HDC, DWORD, DWORD, DWORD, FLOAT, FLOAT, int, LPGLYPHMETRICSFLOAT )
 {
 	logPrintf("WARNING: wglUseFontOutlinesW is not supported\n");
 	return FALSE;
 }
 
-OPENGL_API BOOL WINAPI wglSwapInterval( int interval )
+OPENGL_API BOOL wglSwapInterval( int interval )
 {
 	D3DGlobal.vSync = (interval > 0);
 	return TRUE;
 }
-OPENGL_API int WINAPI wglGetSwapInterval()
+OPENGL_API int wglGetSwapInterval()
 {
 	return (D3DGlobal.vSync ? 1 : 0);
 }

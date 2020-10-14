@@ -31,7 +31,7 @@
 //GL_ARB_vertex_buffer_object
 //GL_ARB_point_sprite
 
-OPENGL_API const char* WINAPI wglGetExtensionsStringARB( HDC )
+OPENGL_API const char* wglGetExtensionsStringARB( HDC )
 {
 	return D3DGlobal.szWExtensions;
 }
@@ -51,51 +51,51 @@ typedef struct glext_entry_point_s
 #define WGL_EXT_ENTRY_POINT( postfix, extname, func, defaultEnable )	{ #func, "WGL_" ## postfix ## "_" ## extname, defaultEnable, (PROC)func }, \
 																		{ #func ## postfix, "WGL_" ## postfix ## "_" ## extname, defaultEnable, (PROC)func }
 
-OPENGL_API void WINAPI glCompressedTexImage1DARB(GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLsizei imageSize, const GLvoid* pixels)
+OPENGL_API void glCompressedTexImage1DARB(GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLsizei imageSize, const GLvoid* pixels)
 {
 	return glCompressedTexImage1D(target, level, internalformat, width, border, imageSize, pixels);
 }
-OPENGL_API void WINAPI glCompressedTexImage2DARB(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid* pixels)
+OPENGL_API void glCompressedTexImage2DARB(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid* pixels)
 {
 	return glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, pixels);
 }
-OPENGL_API void WINAPI glCompressedTexImage3DARB(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const GLvoid* pixels)
+OPENGL_API void glCompressedTexImage3DARB(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const GLvoid* pixels)
 {
 	return glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, imageSize, pixels);
 }
-OPENGL_API void WINAPI glCompressedTexSubImage1DARB(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const GLvoid* pixels)
+OPENGL_API void glCompressedTexSubImage1DARB(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const GLvoid* pixels)
 {
 	return glCompressedTexSubImage1D(target, level, xoffset, width, format, imageSize, pixels);
 }
-OPENGL_API void WINAPI glCompressedTexSubImage2DARB(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid* pixels)
+OPENGL_API void glCompressedTexSubImage2DARB(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid* pixels)
 {
 	return glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, imageSize, pixels);
 }
-OPENGL_API void WINAPI glCompressedTexSubImage3DARB(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid* pixels)
+OPENGL_API void glCompressedTexSubImage3DARB(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid* pixels)
 {
 	return glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, pixels);
 }
-OPENGL_API void WINAPI glGetCompressedTexImageARB(GLenum target, GLint level, GLvoid* img)
+OPENGL_API void glGetCompressedTexImageARB(GLenum target, GLint level, GLvoid* img)
 {
 	return glGetCompressedTexImage(target, level, img);
 }
-OPENGL_API void WINAPI glActiveTextureARB(GLenum texture)
+OPENGL_API void glActiveTextureARB(GLenum texture)
 {
 	return glActiveTexture(texture);
 }
-OPENGL_API void WINAPI glClientActiveTextureARB(GLenum texture)
+OPENGL_API void glClientActiveTextureARB(GLenum texture)
 {
 	return glClientActiveTexture(texture);
 }
-OPENGL_API void WINAPI glSelectTextureSGIS(GLenum texture)
+OPENGL_API void glSelectTextureSGIS(GLenum texture)
 {
 	return glSelectTexture(texture);
 }
-OPENGL_API void WINAPI glMTexCoord2fSGIS(GLenum target, GLfloat s, GLfloat t)
+OPENGL_API void glMTexCoord2fSGIS(GLenum target, GLfloat s, GLfloat t)
 {
 	return glMTexCoord2f(target, s, t);
 }
-OPENGL_API void WINAPI glMTexCoord2fvSGIS(GLenum target, const GLfloat* v)
+OPENGL_API void glMTexCoord2fvSGIS(GLenum target, const GLfloat* v)
 {
 	return glMTexCoord2fv(target, v);
 }
@@ -420,7 +420,7 @@ void D3DExtension_BuildExtensionsString()
 //-----------------------------------------
 // Return a requested extension proc address
 //=========================================
-OPENGL_API PROC WINAPI wrap_wglGetProcAddress( LPCSTR s )
+OPENGL_API PROC wrap_wglGetProcAddress( LPCSTR s )
 {
 	static size_t stubAddress = 0xBAD00000;
 	const char *pszDisabledExt = NULL;
@@ -454,7 +454,7 @@ OPENGL_API PROC WINAPI wrap_wglGetProcAddress( LPCSTR s )
 	return (PROC)stubAddress;
 }
 
-OPENGL_API PROC WINAPI wrap_wglGetDefaultProcAddress( LPCSTR s )
+OPENGL_API PROC wrap_wglGetDefaultProcAddress( LPCSTR s )
 {
 	return wrap_wglGetProcAddress(s);
 }

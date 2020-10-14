@@ -31,7 +31,7 @@
 // TODO: test two-side stenciling!
 //==================================================================================
 
-OPENGL_API void WINAPI glStencilMask( GLuint mask )
+OPENGL_API void glStencilMask( GLuint mask )
 {
 	if (D3DState.StencilBufferState.stencilWriteMask != mask) {
 		D3DState.StencilBufferState.stencilWriteMask = mask;
@@ -39,7 +39,7 @@ OPENGL_API void WINAPI glStencilMask( GLuint mask )
 	}
 }
 
-OPENGL_API void WINAPI glStencilFunc( GLenum func, GLint ref, GLuint mask )
+OPENGL_API void glStencilFunc( GLenum func, GLint ref, GLuint mask )
 {
 	DWORD dfunc = UTIL_GLtoD3DCmpFunc(func);
 	if (!D3DState.EnableState.twoSideStencilEnabled || D3DState.StencilBufferState.activeStencilFace == GL_CW) {
@@ -65,7 +65,7 @@ OPENGL_API void WINAPI glStencilFunc( GLenum func, GLint ref, GLuint mask )
 	}
 }
 
-OPENGL_API void WINAPI glStencilOp( GLenum fail, GLenum zfail, GLenum zpass )
+OPENGL_API void glStencilOp( GLenum fail, GLenum zfail, GLenum zpass )
 {
 	DWORD dfunc;
 	if (!D3DState.EnableState.twoSideStencilEnabled || D3DState.StencilBufferState.activeStencilFace == GL_CW) {
@@ -103,7 +103,7 @@ OPENGL_API void WINAPI glStencilOp( GLenum fail, GLenum zfail, GLenum zpass )
 	}
 }
 
-OPENGL_API void WINAPI glActiveStencilFace( GLenum face )
+OPENGL_API void glActiveStencilFace( GLenum face )
 {
 	if (face == GL_FRONT)
 		D3DState.StencilBufferState.activeStencilFace = (D3DState.PolygonState.frontFace == GL_CW) ? GL_CW : GL_CCW;

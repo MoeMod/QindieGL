@@ -29,7 +29,7 @@
 // Nice concord with Direct3D materials
 //==================================================================================
 
-OPENGL_API void WINAPI glColorMaterial( GLenum face, GLenum mode )
+OPENGL_API void glColorMaterial( GLenum face, GLenum mode )
 {
 	static bool warningPrinted = false;
 
@@ -46,7 +46,7 @@ OPENGL_API void WINAPI glColorMaterial( GLenum face, GLenum mode )
 	}
 }
 
-OPENGL_API void WINAPI glMaterialf( GLenum face, GLenum pname, GLfloat param )
+OPENGL_API void glMaterialf( GLenum face, GLenum pname, GLfloat param )
 {
 	static bool warningPrinted = false;
 
@@ -68,12 +68,12 @@ OPENGL_API void WINAPI glMaterialf( GLenum face, GLenum pname, GLfloat param )
 		break;
 	}
 }
-OPENGL_API void WINAPI glMateriali( GLenum face, GLenum pname, GLint param )
+OPENGL_API void glMateriali( GLenum face, GLenum pname, GLint param )
 {
 	glMaterialf( face, pname,(GLfloat)param );
 }
 
-OPENGL_API void WINAPI glMaterialfv( GLenum face, GLenum pname, const GLfloat *params )
+OPENGL_API void glMaterialfv( GLenum face, GLenum pname, const GLfloat *params )
 {
 	static bool warningPrinted = false;
 
@@ -134,7 +134,7 @@ OPENGL_API void WINAPI glMaterialfv( GLenum face, GLenum pname, const GLfloat *p
 		break;
 	}
 }
-OPENGL_API void WINAPI glMaterialiv( GLenum face, GLenum pname, const GLint *params )
+OPENGL_API void glMaterialiv( GLenum face, GLenum pname, const GLint *params )
 {
 	GLfloat fparams[4];
 	fparams[0] =(GLfloat)params[0];
@@ -144,7 +144,7 @@ OPENGL_API void WINAPI glMaterialiv( GLenum face, GLenum pname, const GLint *par
 	glMaterialfv( face, pname, fparams );	
 }
 
-OPENGL_API void WINAPI glGetMaterialfv( GLenum face, GLenum pname, GLfloat *params )
+OPENGL_API void glGetMaterialfv( GLenum face, GLenum pname, GLfloat *params )
 {
 	static bool warningPrinted = false;
 
@@ -190,7 +190,7 @@ OPENGL_API void WINAPI glGetMaterialfv( GLenum face, GLenum pname, GLfloat *para
 	}
 }
 
-OPENGL_API void WINAPI glGetMaterialiv( GLenum face, GLenum pname, GLint *params )
+OPENGL_API void glGetMaterialiv( GLenum face, GLenum pname, GLint *params )
 {
 	static bool warningPrinted = false;
 

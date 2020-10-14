@@ -82,7 +82,7 @@ static inline void CheckTexCoordOffset_Hack( bool ortho )
 	}
 }
 
-OPENGL_API void WINAPI glMatrixMode( GLenum mode )
+OPENGL_API void glMatrixMode( GLenum mode )
 {
 	if( D3DState.TransformState.matrixMode != mode )
 	{
@@ -92,7 +92,7 @@ OPENGL_API void WINAPI glMatrixMode( GLenum mode )
 	}
 }
 
-OPENGL_API void WINAPI glLoadIdentity()
+OPENGL_API void glLoadIdentity()
 {
 	if( !D3DState.currentMatrixStack ) return;
 	D3DState.currentMatrixStack->load_identity( );
@@ -127,7 +127,7 @@ static void ProjectionMatrix_GLtoD3D(DirectX::XMFLOAT4X4 &m )
 	}
 }
 
-OPENGL_API void WINAPI glLoadMatrixf( const GLfloat *m )
+OPENGL_API void glLoadMatrixf( const GLfloat *m )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	bool b2Dproj = false;
@@ -147,26 +147,26 @@ OPENGL_API void WINAPI glLoadMatrixf( const GLfloat *m )
 	*D3DState.currentMatrixModified = true;
 	CheckTexCoordOffset_Hack( b2Dproj );
 }
-OPENGL_API void WINAPI glLoadMatrixd( const GLdouble *m )
+OPENGL_API void glLoadMatrixd( const GLdouble *m )
 {
 	FLOAT mf[16];
 	std::copy_n(m, 16, mf);
 	return glLoadMatrixf(mf);
 }
-OPENGL_API void WINAPI glMultMatrixf( const GLfloat *m )
+OPENGL_API void glMultMatrixf( const GLfloat *m )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	D3DState.currentMatrixStack->multiply(DirectX::XMMATRIX(m));
 	*D3DState.currentMatrixModified = true;
 	CheckTexCoordOffset_Hack( false );
 }
-OPENGL_API void WINAPI glMultMatrixd( const GLdouble *m )
+OPENGL_API void glMultMatrixd( const GLdouble *m )
 {
 	FLOAT mf[16];
 	std::copy_n(m, 16, mf);
 	return glMultMatrixf(mf);
 }
-OPENGL_API void WINAPI glLoadTransposeMatrixf( const GLfloat *m )
+OPENGL_API void glLoadTransposeMatrixf( const GLfloat *m )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	bool b2Dproj = false;
@@ -185,13 +185,13 @@ OPENGL_API void WINAPI glLoadTransposeMatrixf( const GLfloat *m )
 	*D3DState.currentMatrixModified = true;
 	CheckTexCoordOffset_Hack( b2Dproj );
 }
-OPENGL_API void WINAPI glLoadTransposeMatrixd( const GLdouble *m )
+OPENGL_API void glLoadTransposeMatrixd( const GLdouble *m )
 {
 	FLOAT mf[16];
 	std::copy_n(m, 16, mf);
 	return glLoadTransposeMatrixf(mf);
 }
-OPENGL_API void WINAPI glMultTransposeMatrixf( const GLfloat *m )
+OPENGL_API void glMultTransposeMatrixf( const GLfloat *m )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	DirectX::XMMATRIX mt = DirectX::XMMatrixTranspose(DirectX::XMMATRIX(m));
@@ -200,13 +200,13 @@ OPENGL_API void WINAPI glMultTransposeMatrixf( const GLfloat *m )
 	*D3DState.currentMatrixModified = true;
 	CheckTexCoordOffset_Hack( false );
 }
-OPENGL_API void WINAPI glMultTransposeMatrixd( const GLdouble *m )
+OPENGL_API void glMultTransposeMatrixd( const GLdouble *m )
 {
 	FLOAT mf[16];
 	std::copy_n(m, 16, mf);
 	return glMultTransposeMatrixf(mf);
 }
-OPENGL_API void WINAPI glFrustum( GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar )
+OPENGL_API void glFrustum( GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	DirectX::XMMATRIX m = DirectX::XMMatrixPerspectiveOffCenterRH((FLOAT)left, (FLOAT)right, (FLOAT)bottom, (FLOAT)top, (FLOAT)zNear, (FLOAT)zFar);
@@ -214,7 +214,7 @@ OPENGL_API void WINAPI glFrustum( GLdouble left, GLdouble right, GLdouble bottom
 	*D3DState.currentMatrixModified = true;
 	CheckTexCoordOffset_Hack( false );
 }
-OPENGL_API void WINAPI glOrtho( GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar )
+OPENGL_API void glOrtho( GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	DirectX::XMMATRIX m = DirectX::XMMatrixOrthographicOffCenterRH((FLOAT)left, (FLOAT)right, (FLOAT)bottom, (FLOAT)top, (FLOAT)zNear, (FLOAT)zFar);
@@ -222,49 +222,49 @@ OPENGL_API void WINAPI glOrtho( GLdouble left, GLdouble right, GLdouble bottom, 
 	*D3DState.currentMatrixModified = true;
 	CheckTexCoordOffset_Hack( true );
 }
-OPENGL_API void WINAPI glPopMatrix( void )
+OPENGL_API void glPopMatrix( void )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	HRESULT hr = D3DState.currentMatrixStack->pop( );
 	if( FAILED( hr ) ) D3DGlobal.lastError = hr;
 	*D3DState.currentMatrixModified = true;
 }
-OPENGL_API void WINAPI glPushMatrix( void )
+OPENGL_API void glPushMatrix( void )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	HRESULT hr = D3DState.currentMatrixStack->push( );
 	if( FAILED( hr ) ) D3DGlobal.lastError = hr;
 }
-OPENGL_API void WINAPI glRotatef( GLfloat angle, GLfloat x, GLfloat y, GLfloat z )
+OPENGL_API void glRotatef( GLfloat angle, GLfloat x, GLfloat y, GLfloat z )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	DirectX::XMMATRIX m = DirectX::XMMatrixRotationAxis(DirectX::XMVectorSet(x, y, z, 0), DirectX::XMConvertToRadians(angle));
 	D3DState.currentMatrixStack->multiply( m );
 	*D3DState.currentMatrixModified = true;
 }
-OPENGL_API void WINAPI glRotated( GLdouble angle, GLdouble x, GLdouble y, GLdouble z )
+OPENGL_API void glRotated( GLdouble angle, GLdouble x, GLdouble y, GLdouble z )
 {
 	return glRotatef((FLOAT)angle, (FLOAT)x, (FLOAT)y, (FLOAT)z);
 }
-OPENGL_API void WINAPI glScalef( GLfloat x, GLfloat y, GLfloat z )
+OPENGL_API void glScalef( GLfloat x, GLfloat y, GLfloat z )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	DirectX::XMMATRIX m = DirectX::XMMatrixScaling(x, y, z);
 	D3DState.currentMatrixStack->multiply( m );
 	*D3DState.currentMatrixModified = true;
 }
-OPENGL_API void WINAPI glScaled( GLdouble x, GLdouble y, GLdouble z )
+OPENGL_API void glScaled( GLdouble x, GLdouble y, GLdouble z )
 {
 	return glScalef((FLOAT)x, (FLOAT)y, (FLOAT)z);
 }
-OPENGL_API void WINAPI glTranslatef( GLfloat x, GLfloat y, GLfloat z )
+OPENGL_API void glTranslatef( GLfloat x, GLfloat y, GLfloat z )
 {
 	if( !D3DState.currentMatrixStack ) return;
 	DirectX::XMMATRIX m = DirectX::XMMatrixTranslation(x, y, z);
 	D3DState.currentMatrixStack->multiply( m );
 	*D3DState.currentMatrixModified = true;
 }
-OPENGL_API void WINAPI glTranslated( GLdouble x, GLdouble y, GLdouble z )
+OPENGL_API void glTranslated( GLdouble x, GLdouble y, GLdouble z )
 {
 	return glTranslatef((FLOAT)x, (FLOAT)y, (FLOAT)z);
 }

@@ -858,19 +858,19 @@ void D3DState_SetDefaults()
 	D3DGlobal.pDevice->SetTransform( D3DTS_TEXTURE0, &d3dIdentityMatrix );
 }
 
-OPENGL_API void WINAPI glPushAttrib( GLbitfield mask )
+OPENGL_API void glPushAttrib( GLbitfield mask )
 {
 	D3DStateCopyMask = mask;
 	D3DState_Copy( &D3DState, &D3DStateCopy, mask );
 }
 
-OPENGL_API void WINAPI glPushClientAttrib( GLbitfield mask )
+OPENGL_API void glPushClientAttrib( GLbitfield mask )
 {
 	D3DStateClientCopyMask = mask;
 	D3DState_CopyClient( &D3DState, &D3DStateCopy, mask );
 }
 
-OPENGL_API void WINAPI glPopAttrib()
+OPENGL_API void glPopAttrib()
 {
 	if (!D3DStateCopyMask) {
 		D3DGlobal.lastError = E_STACK_UNDERFLOW;
@@ -896,7 +896,7 @@ OPENGL_API void WINAPI glPopAttrib()
 	D3DStateCopyMask = 0;
 }
 
-OPENGL_API void WINAPI glPopClientAttrib()
+OPENGL_API void glPopClientAttrib()
 {
 	if (!D3DStateClientCopyMask) {
 		D3DGlobal.lastError = E_STACK_UNDERFLOW;
@@ -1292,32 +1292,32 @@ static void D3DState_EnableDisableClientState( GLenum cap, DWORD value )
 	}
 }
 
-OPENGL_API void WINAPI glEnable( GLenum cap )
+OPENGL_API void glEnable( GLenum cap )
 {
 	D3DState_EnableDisableState( cap, TRUE );
 }
 
-OPENGL_API void WINAPI glDisable( GLenum cap )
+OPENGL_API void glDisable( GLenum cap )
 {
 	D3DState_EnableDisableState( cap, FALSE );
 }
 
-OPENGL_API GLboolean WINAPI glIsEnabled( GLenum cap )
+OPENGL_API GLboolean glIsEnabled( GLenum cap )
 {
 	return (D3DState_IsEnabledState( cap ) > 0 ? GL_TRUE : GL_FALSE );
 }
 
-OPENGL_API void WINAPI glEnableClientState( GLenum cap )
+OPENGL_API void glEnableClientState( GLenum cap )
 {
 	D3DState_EnableDisableClientState( cap, TRUE );
 }
 
-OPENGL_API void WINAPI glDisableClientState( GLenum cap )
+OPENGL_API void glDisableClientState( GLenum cap )
 {
 	D3DState_EnableDisableClientState( cap, FALSE );
 }
 
-OPENGL_API void WINAPI glHint(GLenum target,  GLenum mode)
+OPENGL_API void glHint(GLenum target,  GLenum mode)
 {
 	switch( target )
 	{ 

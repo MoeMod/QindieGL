@@ -438,563 +438,563 @@ template<typename T> inline void D3D_SetTexCoord( GLenum target, T s, T t, T r, 
 	}
 }
 
-OPENGL_API void WINAPI glColor3b( GLbyte red, GLbyte green, GLbyte blue )
+OPENGL_API void glColor3b( GLbyte red, GLbyte green, GLbyte blue )
 {
 	D3D_SetColor( red, green, blue, SCHAR_MAX );
 }
-OPENGL_API void WINAPI glColor3bv( const GLbyte *v )
+OPENGL_API void glColor3bv( const GLbyte *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], SCHAR_MAX );
 }
-OPENGL_API void WINAPI glColor3d( GLdouble red, GLdouble green, GLdouble blue )
+OPENGL_API void glColor3d( GLdouble red, GLdouble green, GLdouble blue )
 {
 	D3D_SetColor( red, green, blue, 1.0 );
 }
-OPENGL_API void WINAPI glColor3dv( const GLdouble *v )
+OPENGL_API void glColor3dv( const GLdouble *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], 1.0 );
 }
-OPENGL_API void WINAPI glColor3f( GLfloat red, GLfloat green, GLfloat blue )
+OPENGL_API void glColor3f( GLfloat red, GLfloat green, GLfloat blue )
 {
 	D3D_SetColor( red, green, blue, 1.0f );
 }
-OPENGL_API void WINAPI glColor3fv( const GLfloat *v )
+OPENGL_API void glColor3fv( const GLfloat *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], 1.0f );
 }
-OPENGL_API void WINAPI glColor3i( GLint red, GLint green, GLint blue )
+OPENGL_API void glColor3i( GLint red, GLint green, GLint blue )
 {
 	D3D_SetColor( red, green, blue );
 }
-OPENGL_API void WINAPI glColor3iv( const GLint *v )
+OPENGL_API void glColor3iv( const GLint *v )
 {
 	D3D_SetColor( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glColor3s( GLshort red, GLshort green, GLshort blue )
+OPENGL_API void glColor3s( GLshort red, GLshort green, GLshort blue )
 {
 	D3D_SetColor( red, green, blue );
 }
-OPENGL_API void WINAPI glColor3sv( const GLshort *v )
+OPENGL_API void glColor3sv( const GLshort *v )
 {
 	D3D_SetColor( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glColor3ub( GLubyte red, GLubyte green, GLubyte blue )
+OPENGL_API void glColor3ub( GLubyte red, GLubyte green, GLubyte blue )
 {
 	D3D_SetColor( red, green, blue, 0xFF );
 }
-OPENGL_API void WINAPI glColor3ubv( const GLubyte *v )
+OPENGL_API void glColor3ubv( const GLubyte *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], 0xFF );
 }
-OPENGL_API void WINAPI glColor3ui( GLuint red, GLuint green, GLuint blue )
+OPENGL_API void glColor3ui( GLuint red, GLuint green, GLuint blue )
 {
 	D3D_SetColor( red, green, blue );
 }
-OPENGL_API void WINAPI glColor3uiv( const GLuint *v )
+OPENGL_API void glColor3uiv( const GLuint *v )
 {
 	D3D_SetColor( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glColor3us( GLushort red, GLushort green, GLushort blue )
+OPENGL_API void glColor3us( GLushort red, GLushort green, GLushort blue )
 {
 	D3D_SetColor( red, green, blue );
 }
-OPENGL_API void WINAPI glColor3usv( const GLushort *v )
+OPENGL_API void glColor3usv( const GLushort *v )
 {
 	D3D_SetColor( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glColor4b( GLbyte red, GLbyte green, GLbyte blue, GLbyte alpha )
+OPENGL_API void glColor4b( GLbyte red, GLbyte green, GLbyte blue, GLbyte alpha )
 {
 	D3D_SetColor( red, green, blue, alpha );
 }
-OPENGL_API void WINAPI glColor4bv( const GLbyte *v )
+OPENGL_API void glColor4bv( const GLbyte *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glColor4d( GLdouble red, GLdouble green, GLdouble blue, GLdouble alpha )
+OPENGL_API void glColor4d( GLdouble red, GLdouble green, GLdouble blue, GLdouble alpha )
 {
 	D3D_SetColor( red, green, blue, alpha );
 }
-OPENGL_API void WINAPI glColor4dv( const GLdouble *v )
+OPENGL_API void glColor4dv( const GLdouble *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glColor4f( GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha )
+OPENGL_API void glColor4f( GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha )
 {
 	D3D_SetColor( red, green, blue, alpha );
 }
-OPENGL_API void WINAPI glColor4fv( const GLfloat *v )
+OPENGL_API void glColor4fv( const GLfloat *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glColor4i( GLint red, GLint green, GLint blue, GLint alpha )
+OPENGL_API void glColor4i( GLint red, GLint green, GLint blue, GLint alpha )
 {
 	D3D_SetColor( red, green, blue, alpha );
 }
-OPENGL_API void WINAPI glColor4iv( const GLint *v )
+OPENGL_API void glColor4iv( const GLint *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glColor4s( GLshort red, GLshort green, GLshort blue, GLshort alpha )
+OPENGL_API void glColor4s( GLshort red, GLshort green, GLshort blue, GLshort alpha )
 {
 	D3D_SetColor( red, green, blue, alpha );
 }
-OPENGL_API void WINAPI glColor4sv( const GLshort *v )
+OPENGL_API void glColor4sv( const GLshort *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glColor4ub( GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha )
+OPENGL_API void glColor4ub( GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha )
 {
 	D3D_SetColor( red, green, blue, alpha );
 }
-OPENGL_API void WINAPI glColor4ubv( const GLubyte *v )
+OPENGL_API void glColor4ubv( const GLubyte *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glColor4ui( GLuint red, GLuint green, GLuint blue, GLuint alpha )
+OPENGL_API void glColor4ui( GLuint red, GLuint green, GLuint blue, GLuint alpha )
 {
 	D3D_SetColor( red, green, blue, alpha );
 }
-OPENGL_API void WINAPI glColor4uiv( const GLuint *v )
+OPENGL_API void glColor4uiv( const GLuint *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glColor4us( GLushort red, GLushort green, GLushort blue, GLushort alpha )
+OPENGL_API void glColor4us( GLushort red, GLushort green, GLushort blue, GLushort alpha )
 {
 	D3D_SetColor( red, green, blue, alpha );
 }
-OPENGL_API void WINAPI glColor4usv( const GLushort *v )
+OPENGL_API void glColor4usv( const GLushort *v )
 {
 	D3D_SetColor( v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glSecondaryColor3b( GLbyte red, GLbyte green, GLbyte blue )
+OPENGL_API void glSecondaryColor3b( GLbyte red, GLbyte green, GLbyte blue )
 {
 	D3D_SetColor2( red, green, blue );
 }
-OPENGL_API void WINAPI glSecondaryColor3bv( const GLbyte *v )
+OPENGL_API void glSecondaryColor3bv( const GLbyte *v )
 {
 	D3D_SetColor2( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glSecondaryColor3d( GLdouble red, GLdouble green, GLdouble blue )
+OPENGL_API void glSecondaryColor3d( GLdouble red, GLdouble green, GLdouble blue )
 {
 	D3D_SetColor2( red, green, blue );
 }
-OPENGL_API void WINAPI glSecondaryColor3dv( const GLdouble *v )
+OPENGL_API void glSecondaryColor3dv( const GLdouble *v )
 {
 	D3D_SetColor2( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glSecondaryColor3f( GLfloat red, GLfloat green, GLfloat blue )
+OPENGL_API void glSecondaryColor3f( GLfloat red, GLfloat green, GLfloat blue )
 {
 	D3D_SetColor2( red, green, blue );
 }
-OPENGL_API void WINAPI glSecondaryColor3fv( const GLfloat *v )
+OPENGL_API void glSecondaryColor3fv( const GLfloat *v )
 {
 	D3D_SetColor2( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glSecondaryColor3i( GLint red, GLint green, GLint blue )
+OPENGL_API void glSecondaryColor3i( GLint red, GLint green, GLint blue )
 {
 	D3D_SetColor2( red, green, blue );
 }
-OPENGL_API void WINAPI glSecondaryColor3iv( const GLint *v )
+OPENGL_API void glSecondaryColor3iv( const GLint *v )
 {
 	D3D_SetColor2( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glSecondaryColor3s( GLshort red, GLshort green, GLshort blue )
+OPENGL_API void glSecondaryColor3s( GLshort red, GLshort green, GLshort blue )
 {
 	D3D_SetColor2( red, green, blue );
 }
-OPENGL_API void WINAPI glSecondaryColor3sv( const GLshort *v )
+OPENGL_API void glSecondaryColor3sv( const GLshort *v )
 {
 	D3D_SetColor2( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glSecondaryColor3ub( GLubyte red, GLubyte green, GLubyte blue )
+OPENGL_API void glSecondaryColor3ub( GLubyte red, GLubyte green, GLubyte blue )
 {
 	D3D_SetColor2( red, green, blue );
 }
-OPENGL_API void WINAPI glSecondaryColor3ubv( const GLubyte *v )
+OPENGL_API void glSecondaryColor3ubv( const GLubyte *v )
 {
 	D3D_SetColor2( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glSecondaryColor3ui( GLuint red, GLuint green, GLuint blue )
+OPENGL_API void glSecondaryColor3ui( GLuint red, GLuint green, GLuint blue )
 {
 	D3D_SetColor2( red, green, blue );
 }
-OPENGL_API void WINAPI glSecondaryColor3uiv( const GLuint *v )
+OPENGL_API void glSecondaryColor3uiv( const GLuint *v )
 {
 	D3D_SetColor2( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glSecondaryColor3us( GLushort red, GLushort green, GLushort blue )
+OPENGL_API void glSecondaryColor3us( GLushort red, GLushort green, GLushort blue )
 {
 	D3D_SetColor2( red, green, blue );
 }
-OPENGL_API void WINAPI glSecondaryColor3usv( const GLushort *v )
+OPENGL_API void glSecondaryColor3usv( const GLushort *v )
 {
 	D3D_SetColor2( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glNormal3b( GLbyte nx, GLbyte ny, GLbyte nz )
+OPENGL_API void glNormal3b( GLbyte nx, GLbyte ny, GLbyte nz )
 {
 	D3D_SetNormal( nx, ny, nz );
 }
-OPENGL_API void WINAPI glNormal3bv( const GLbyte *v )
+OPENGL_API void glNormal3bv( const GLbyte *v )
 {
 	D3D_SetNormal( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glNormal3d( GLdouble nx, GLdouble ny, GLdouble nz )
+OPENGL_API void glNormal3d( GLdouble nx, GLdouble ny, GLdouble nz )
 {
 	D3D_SetNormal( nx, ny, nz );
 }
-OPENGL_API void WINAPI glNormal3dv( const GLdouble *v )
+OPENGL_API void glNormal3dv( const GLdouble *v )
 {
 	D3D_SetNormal( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glNormal3f( GLfloat nx, GLfloat ny, GLfloat nz )
+OPENGL_API void glNormal3f( GLfloat nx, GLfloat ny, GLfloat nz )
 {
 	D3D_SetNormal( nx, ny, nz );
 }
-OPENGL_API void WINAPI glNormal3fv( const GLfloat *v )
+OPENGL_API void glNormal3fv( const GLfloat *v )
 {
 	D3D_SetNormal( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glNormal3i( GLint nx, GLint ny, GLint nz )
+OPENGL_API void glNormal3i( GLint nx, GLint ny, GLint nz )
 {
 	D3D_SetNormal( nx, ny, nz );
 }
-OPENGL_API void WINAPI glNormal3iv( const GLint *v )
+OPENGL_API void glNormal3iv( const GLint *v )
 {
 	D3D_SetNormal( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glNormal3s( GLshort nx, GLshort ny, GLshort nz )
+OPENGL_API void glNormal3s( GLshort nx, GLshort ny, GLshort nz )
 {
 	D3D_SetNormal( nx, ny, nz );
 }
-OPENGL_API void WINAPI glNormal3sv( const GLshort *v )
+OPENGL_API void glNormal3sv( const GLshort *v )
 {
 	D3D_SetNormal( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glTexCoord1d( GLdouble s )
+OPENGL_API void glTexCoord1d( GLdouble s )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, 0.0, 0.0, 1.0 );
 }
-OPENGL_API void WINAPI glTexCoord1dv( const GLdouble *v )
+OPENGL_API void glTexCoord1dv( const GLdouble *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], 0.0, 0.0, 1.0 );
 }
-OPENGL_API void WINAPI glTexCoord1f( GLfloat s )
+OPENGL_API void glTexCoord1f( GLfloat s )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, 0.0f, 0.0f, 1.0f );
 }
-OPENGL_API void WINAPI glTexCoord1fv( const GLfloat *v )
+OPENGL_API void glTexCoord1fv( const GLfloat *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], 0.0f, 0.0f, 1.0f );
 }
-OPENGL_API void WINAPI glTexCoord1i( GLint s )
+OPENGL_API void glTexCoord1i( GLint s )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, 0, 0, 1 );
 }
-OPENGL_API void WINAPI glTexCoord1iv( const GLint *v )
+OPENGL_API void glTexCoord1iv( const GLint *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], 0, 0, 1 );
 }
-OPENGL_API void WINAPI glTexCoord1s( GLshort s )
+OPENGL_API void glTexCoord1s( GLshort s )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, (GLshort)0, (GLshort)0, (GLshort)1 );
 }
-OPENGL_API void WINAPI glTexCoord1sv( const GLshort *v )
+OPENGL_API void glTexCoord1sv( const GLshort *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], (GLshort)0, (GLshort)0, (GLshort)1 );
 }
-OPENGL_API void WINAPI glTexCoord2d( GLdouble s, GLdouble t )
+OPENGL_API void glTexCoord2d( GLdouble s, GLdouble t )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, 0.0, 1.0 );
 }
-OPENGL_API void WINAPI glTexCoord2dv( const GLdouble *v )
+OPENGL_API void glTexCoord2dv( const GLdouble *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], 0.0, 1.0 );
 }
-OPENGL_API void WINAPI glTexCoord2f( GLfloat s, GLfloat t )
+OPENGL_API void glTexCoord2f( GLfloat s, GLfloat t )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, 0.0f, 1.0f );
 }
-OPENGL_API void WINAPI glTexCoord2fv( const GLfloat *v )
+OPENGL_API void glTexCoord2fv( const GLfloat *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], 0.0f, 1.0f );
 }
-OPENGL_API void WINAPI glTexCoord2i( GLint s, GLint t )
+OPENGL_API void glTexCoord2i( GLint s, GLint t )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, 0, 1 );
 }
-OPENGL_API void WINAPI glTexCoord2iv( const GLint *v )
+OPENGL_API void glTexCoord2iv( const GLint *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], 0, 1 );
 }
-OPENGL_API void WINAPI glTexCoord2s( GLshort s, GLshort t )
+OPENGL_API void glTexCoord2s( GLshort s, GLshort t )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, (GLshort)0, (GLshort)1 );
 }
-OPENGL_API void WINAPI glTexCoord2sv( const GLshort *v )
+OPENGL_API void glTexCoord2sv( const GLshort *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], (GLshort)0, (GLshort)1 );
 }
-OPENGL_API void WINAPI glTexCoord3d( GLdouble s, GLdouble t, GLdouble r )
+OPENGL_API void glTexCoord3d( GLdouble s, GLdouble t, GLdouble r )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, r, 1.0 );
 }
-OPENGL_API void WINAPI glTexCoord3dv( const GLdouble *v )
+OPENGL_API void glTexCoord3dv( const GLdouble *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], v[2], 1.0 );
 }
-OPENGL_API void WINAPI glTexCoord3f( GLfloat s, GLfloat t, GLfloat r )
+OPENGL_API void glTexCoord3f( GLfloat s, GLfloat t, GLfloat r )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, r, 1.0f );
 }
-OPENGL_API void WINAPI glTexCoord3fv( const GLfloat *v )
+OPENGL_API void glTexCoord3fv( const GLfloat *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], v[2], 1.0f );
 }
-OPENGL_API void WINAPI glTexCoord3i( GLint s, GLint t, GLint r )
+OPENGL_API void glTexCoord3i( GLint s, GLint t, GLint r )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, r, 1 );
 }
-OPENGL_API void WINAPI glTexCoord3iv( const GLint *v )
+OPENGL_API void glTexCoord3iv( const GLint *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], v[2], 1 );
 }
-OPENGL_API void WINAPI glTexCoord3s( GLshort s, GLshort t, GLshort r )
+OPENGL_API void glTexCoord3s( GLshort s, GLshort t, GLshort r )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, r, (GLshort)1 );
 }
-OPENGL_API void WINAPI glTexCoord3sv( const GLshort *v )
+OPENGL_API void glTexCoord3sv( const GLshort *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], v[2], (GLshort)1 );
 }
-OPENGL_API void WINAPI glTexCoord4d( GLdouble s, GLdouble t, GLdouble r, GLdouble q )
+OPENGL_API void glTexCoord4d( GLdouble s, GLdouble t, GLdouble r, GLdouble q )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, r, q );
 }
-OPENGL_API void WINAPI glTexCoord4dv( const GLdouble *v )
+OPENGL_API void glTexCoord4dv( const GLdouble *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glTexCoord4f( GLfloat s, GLfloat t, GLfloat r, GLfloat q )
+OPENGL_API void glTexCoord4f( GLfloat s, GLfloat t, GLfloat r, GLfloat q )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, r, q );
 }
-OPENGL_API void WINAPI glTexCoord4fv( const GLfloat *v )
+OPENGL_API void glTexCoord4fv( const GLfloat *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glTexCoord4i( GLint s, GLint t, GLint r, GLint q )
+OPENGL_API void glTexCoord4i( GLint s, GLint t, GLint r, GLint q )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, r, q );
 }
-OPENGL_API void WINAPI glTexCoord4iv( const GLint *v )
+OPENGL_API void glTexCoord4iv( const GLint *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glTexCoord4s( GLshort s, GLshort t, GLshort r, GLshort q )
+OPENGL_API void glTexCoord4s( GLshort s, GLshort t, GLshort r, GLshort q )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, s, t, r, q );
 }
-OPENGL_API void WINAPI glTexCoord4sv( const GLshort *v )
+OPENGL_API void glTexCoord4sv( const GLshort *v )
 {
 	D3D_SetTexCoord( GL_TEXTURE0_ARB, v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glEdgeFlag( GLboolean )
+OPENGL_API void glEdgeFlag( GLboolean )
 {
 	logPrintf( "WARNING: glEdgeFlag is not implemented\n" );
 }
-OPENGL_API void WINAPI glEdgeFlagv( const GLboolean* )
+OPENGL_API void glEdgeFlagv( const GLboolean* )
 {
 	logPrintf( "WARNING: glEdgeFlagv is not implemented\n" );
 }
-OPENGL_API void WINAPI glIndexd( GLdouble )
+OPENGL_API void glIndexd( GLdouble )
 {
 	logPrintf( "WARNING: glIndexd is not implemented\n" );
 }
-OPENGL_API void WINAPI glIndexdv( const GLdouble* )
+OPENGL_API void glIndexdv( const GLdouble* )
 {
 	logPrintf( "WARNING: glIndexdv is not implemented\n" );
 }
-OPENGL_API void WINAPI glIndexf( GLfloat )
+OPENGL_API void glIndexf( GLfloat )
 {
 	logPrintf( "WARNING: glIndexf is not implemented\n" );
 }
-OPENGL_API void WINAPI glIndexfv( const GLfloat* )
+OPENGL_API void glIndexfv( const GLfloat* )
 {
 	logPrintf( "WARNING: glIndexfv is not implemented\n" );
 }
-OPENGL_API void WINAPI glIndexi( GLint )
+OPENGL_API void glIndexi( GLint )
 {
 	logPrintf( "WARNING: glIndexi is not implemented\n" );
 }
-OPENGL_API void WINAPI glIndexiv( const GLint* )
+OPENGL_API void glIndexiv( const GLint* )
 {
 	logPrintf( "WARNING: glIndexiv is not implemented\n" );
 }
-OPENGL_API void WINAPI glIndexs( GLshort )
+OPENGL_API void glIndexs( GLshort )
 {
 	logPrintf( "WARNING: glIndexs is not implemented\n" );
 }
-OPENGL_API void WINAPI glIndexsv( const GLshort* )
+OPENGL_API void glIndexsv( const GLshort* )
 {
 	logPrintf( "WARNING: glIndexsv is not implemented\n" );
 }
-OPENGL_API void WINAPI glIndexub( GLubyte )
+OPENGL_API void glIndexub( GLubyte )
 {
 	logPrintf( "WARNING: glIndexub is not implemented\n" );
 }
-OPENGL_API void WINAPI glIndexubv( const GLubyte* )
+OPENGL_API void glIndexubv( const GLubyte* )
 {
 	logPrintf( "WARNING: glIndexubv is not implemented\n" );
 }
-OPENGL_API void WINAPI glMultiTexCoord1s( GLenum target, GLshort s )
+OPENGL_API void glMultiTexCoord1s( GLenum target, GLshort s )
 {
 	D3D_SetTexCoord( target, s, (GLshort)0, (GLshort)0, (GLshort)1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord1i( GLenum target, GLint s )
+OPENGL_API void glMultiTexCoord1i( GLenum target, GLint s )
 {
 	D3D_SetTexCoord( target, s, 0, 0, 1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord1f( GLenum target, GLfloat s )
+OPENGL_API void glMultiTexCoord1f( GLenum target, GLfloat s )
 {
 	D3D_SetTexCoord( target, s, 0.0f, 0.0f, 1.0f );
 }
-OPENGL_API void WINAPI glMultiTexCoord1d( GLenum target, GLdouble s )
+OPENGL_API void glMultiTexCoord1d( GLenum target, GLdouble s )
 {
 	D3D_SetTexCoord( target, s, 0.0, 0.0, 1.0 );
 }
-OPENGL_API void WINAPI glMultiTexCoord2s( GLenum target, GLshort s, GLshort t )
+OPENGL_API void glMultiTexCoord2s( GLenum target, GLshort s, GLshort t )
 {
 	D3D_SetTexCoord( target, s, t, (GLshort)0, (GLshort)1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord2i( GLenum target, GLint s, GLint t )
+OPENGL_API void glMultiTexCoord2i( GLenum target, GLint s, GLint t )
 {
 	D3D_SetTexCoord( target, s, t, 0, 1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord2f( GLenum target, GLfloat s, GLfloat t )
+OPENGL_API void glMultiTexCoord2f( GLenum target, GLfloat s, GLfloat t )
 {
 	D3D_SetTexCoord( target, s, t, 0.0f, 1.0f );
 }
-OPENGL_API void WINAPI glMultiTexCoord2d( GLenum target, GLdouble s, GLdouble t )
+OPENGL_API void glMultiTexCoord2d( GLenum target, GLdouble s, GLdouble t )
 {
 	D3D_SetTexCoord( target, s, t, 0.0, 1.0 );
 }
-OPENGL_API void WINAPI glMultiTexCoord3s( GLenum target, GLshort s, GLshort t, GLshort r )
+OPENGL_API void glMultiTexCoord3s( GLenum target, GLshort s, GLshort t, GLshort r )
 {
 	D3D_SetTexCoord( target, s, t, r, (GLshort)1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord3i( GLenum target, GLint s, GLint t, GLint r )
+OPENGL_API void glMultiTexCoord3i( GLenum target, GLint s, GLint t, GLint r )
 {
 	D3D_SetTexCoord( target, s, t, r, 1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord3f( GLenum target, GLfloat s, GLfloat t, GLfloat r )
+OPENGL_API void glMultiTexCoord3f( GLenum target, GLfloat s, GLfloat t, GLfloat r )
 {
 	D3D_SetTexCoord( target, s, t, r, 1.0f );
 }
-OPENGL_API void WINAPI glMultiTexCoord3d( GLenum target, GLdouble s, GLdouble t, GLdouble r )
+OPENGL_API void glMultiTexCoord3d( GLenum target, GLdouble s, GLdouble t, GLdouble r )
 {
 	D3D_SetTexCoord( target, s, t, r, 1.0 );
 }
-OPENGL_API void WINAPI glMultiTexCoord4s( GLenum target, GLshort s, GLshort t, GLshort r, GLshort q )
+OPENGL_API void glMultiTexCoord4s( GLenum target, GLshort s, GLshort t, GLshort r, GLshort q )
 {
 	D3D_SetTexCoord( target, s, t, r, q );
 }
-OPENGL_API void WINAPI glMultiTexCoord4i( GLenum target, GLint s, GLint t, GLint r, GLint q )
+OPENGL_API void glMultiTexCoord4i( GLenum target, GLint s, GLint t, GLint r, GLint q )
 {
 	D3D_SetTexCoord( target, s, t, r, q );
 }
-OPENGL_API void WINAPI glMultiTexCoord4f( GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q )
+OPENGL_API void glMultiTexCoord4f( GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q )
 {
 	D3D_SetTexCoord( target, s, t, r, q );
 }
-OPENGL_API void WINAPI glMultiTexCoord4d( GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q )
+OPENGL_API void glMultiTexCoord4d( GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q )
 {
 	D3D_SetTexCoord( target, s, t, r, q );
 }
-OPENGL_API void WINAPI glMultiTexCoord1sv( GLenum target, const GLshort *v )
+OPENGL_API void glMultiTexCoord1sv( GLenum target, const GLshort *v )
 {
 	D3D_SetTexCoord( target, v[0], (GLshort)0, (GLshort)0, (GLshort)1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord1iv( GLenum target, const GLint *v )
+OPENGL_API void glMultiTexCoord1iv( GLenum target, const GLint *v )
 {
 	D3D_SetTexCoord( target, v[0], 0, 0, 1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord1fv( GLenum target, const GLfloat *v )
+OPENGL_API void glMultiTexCoord1fv( GLenum target, const GLfloat *v )
 {
 	D3D_SetTexCoord( target, v[0], 0.0f, 0.0f, 1.0f );
 }
-OPENGL_API void WINAPI glMultiTexCoord1dv( GLenum target, const GLdouble *v )
+OPENGL_API void glMultiTexCoord1dv( GLenum target, const GLdouble *v )
 {
 	D3D_SetTexCoord( target, v[0], 0.0, 0.0, 1.0 );
 }
-OPENGL_API void WINAPI glMultiTexCoord2sv( GLenum target, const GLshort *v )
+OPENGL_API void glMultiTexCoord2sv( GLenum target, const GLshort *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], (GLshort)0, (GLshort)1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord2iv( GLenum target, const GLint *v )
+OPENGL_API void glMultiTexCoord2iv( GLenum target, const GLint *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], 0, 1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord2fv( GLenum target, const GLfloat *v )
+OPENGL_API void glMultiTexCoord2fv( GLenum target, const GLfloat *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], 0.0f, 1.0f );
 }
-OPENGL_API void WINAPI glMultiTexCoord2dv( GLenum target, const GLdouble *v )
+OPENGL_API void glMultiTexCoord2dv( GLenum target, const GLdouble *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], 0.0, 1.0 );
 }
-OPENGL_API void WINAPI glMultiTexCoord3sv( GLenum target, const GLshort *v )
+OPENGL_API void glMultiTexCoord3sv( GLenum target, const GLshort *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], v[2], (GLshort)1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord3iv( GLenum target, const GLint *v )
+OPENGL_API void glMultiTexCoord3iv( GLenum target, const GLint *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], v[2], 1 );
 }
-OPENGL_API void WINAPI glMultiTexCoord3fv( GLenum target, const GLfloat *v )
+OPENGL_API void glMultiTexCoord3fv( GLenum target, const GLfloat *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], v[2], 1.0f );
 }
-OPENGL_API void WINAPI glMultiTexCoord3dv( GLenum target, const GLdouble *v )
+OPENGL_API void glMultiTexCoord3dv( GLenum target, const GLdouble *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], v[2], 1.0 );
 }
-OPENGL_API void WINAPI glMultiTexCoord4sv( GLenum target, const GLshort *v )
+OPENGL_API void glMultiTexCoord4sv( GLenum target, const GLshort *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], v[3], v[4] );
 }
-OPENGL_API void WINAPI glMultiTexCoord4iv( GLenum target, const GLint *v )
+OPENGL_API void glMultiTexCoord4iv( GLenum target, const GLint *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], v[3], v[4] );
 }
-OPENGL_API void WINAPI glMultiTexCoord4fv( GLenum target, const GLfloat *v )
+OPENGL_API void glMultiTexCoord4fv( GLenum target, const GLfloat *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], v[3], v[4] );
 }
-OPENGL_API void WINAPI glMultiTexCoord4dv( GLenum target, const GLdouble *v )
+OPENGL_API void glMultiTexCoord4dv( GLenum target, const GLdouble *v )
 {
 	D3D_SetTexCoord( target, v[0], v[1], v[3], v[4] );
 }
-OPENGL_API void WINAPI glMTexCoord2f( GLenum target, GLfloat s, GLfloat t )
+OPENGL_API void glMTexCoord2f( GLenum target, GLfloat s, GLfloat t )
 {
 	D3D_SetTexCoord( target + GL_TEXTURE0_ARB - GL_TEXTURE0_SGIS, s, t, 0.0f, 1.0f );
 }
-OPENGL_API void WINAPI glMTexCoord2fv( GLenum target, const GLfloat *v )
+OPENGL_API void glMTexCoord2fv( GLenum target, const GLfloat *v )
 {
 	D3D_SetTexCoord( target + GL_TEXTURE0_ARB - GL_TEXTURE0_SGIS, v[0], v[1], 0.0f, 1.0f );
 }
-OPENGL_API void WINAPI glFogCoordd( GLdouble coord )
+OPENGL_API void glFogCoordd( GLdouble coord )
 {
 	D3D_SetFogCoord( (FLOAT)coord );
 }
-OPENGL_API void WINAPI glFogCoordf( GLfloat coord )
+OPENGL_API void glFogCoordf( GLfloat coord )
 {
 	D3D_SetFogCoord( coord );
 }
-OPENGL_API void WINAPI glFogCoorddv( GLdouble *coord )
+OPENGL_API void glFogCoorddv( GLdouble *coord )
 {
 	D3D_SetFogCoord( (FLOAT)( *coord ) );
 }
-OPENGL_API void WINAPI glFogCoordfv( GLfloat *coord )
+OPENGL_API void glFogCoordfv( GLfloat *coord )
 {
 	D3D_SetFogCoord( *coord );
 }
@@ -1015,99 +1015,99 @@ template<typename T> inline void D3D_AddVertex( T x, T y, T z )
 	D3DGlobal.pIMBuffer->AddVertex( (FLOAT)x, (FLOAT)y, (FLOAT)z );
 }
 
-OPENGL_API void WINAPI glVertex2d( GLdouble x, GLdouble y )
+OPENGL_API void glVertex2d( GLdouble x, GLdouble y )
 {
 	D3D_AddVertex( x, y, 0.0 );
 }
-OPENGL_API void WINAPI glVertex2dv( const GLdouble *v )
+OPENGL_API void glVertex2dv( const GLdouble *v )
 {
 	D3D_AddVertex( v[0], v[1], 0.0 );
 }
-OPENGL_API void WINAPI glVertex2f( GLfloat x, GLfloat y )
+OPENGL_API void glVertex2f( GLfloat x, GLfloat y )
 {
 	D3D_AddVertex( x, y, 0.0f );
 }
-OPENGL_API void WINAPI glVertex2fv( const GLfloat *v )
+OPENGL_API void glVertex2fv( const GLfloat *v )
 {
 	D3D_AddVertex( v[0], v[1], 0.0f );
 }
-OPENGL_API void WINAPI glVertex2i( GLint x, GLint y )
+OPENGL_API void glVertex2i( GLint x, GLint y )
 {
 	D3D_AddVertex( x, y, 0 );
 }
-OPENGL_API void WINAPI glVertex2iv( const GLint *v )
+OPENGL_API void glVertex2iv( const GLint *v )
 {
 	D3D_AddVertex( v[0], v[1], 0 );
 }
-OPENGL_API void WINAPI glVertex2s( GLshort x, GLshort y )
+OPENGL_API void glVertex2s( GLshort x, GLshort y )
 {
 	D3D_AddVertex( x, y, (GLshort)0 );
 }
-OPENGL_API void WINAPI glVertex2sv( const GLshort *v )
+OPENGL_API void glVertex2sv( const GLshort *v )
 {
 	D3D_AddVertex( v[0], v[1], (GLshort)0 );
 }
-OPENGL_API void WINAPI glVertex3d( GLdouble x, GLdouble y, GLdouble z )
+OPENGL_API void glVertex3d( GLdouble x, GLdouble y, GLdouble z )
 {
 	D3D_AddVertex( x, y, z );
 }
-OPENGL_API void WINAPI glVertex3dv( const GLdouble *v )
+OPENGL_API void glVertex3dv( const GLdouble *v )
 {
 	D3D_AddVertex( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glVertex3f( GLfloat x, GLfloat y, GLfloat z )
+OPENGL_API void glVertex3f( GLfloat x, GLfloat y, GLfloat z )
 {
 	D3D_AddVertex( x, y, z );
 }
-OPENGL_API void WINAPI glVertex3fv( const GLfloat *v )
+OPENGL_API void glVertex3fv( const GLfloat *v )
 {
 	D3D_AddVertex( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glVertex3i( GLint x, GLint y, GLint z )
+OPENGL_API void glVertex3i( GLint x, GLint y, GLint z )
 {
 	D3D_AddVertex( x, y, z );
 }
-OPENGL_API void WINAPI glVertex3iv( const GLint *v )
+OPENGL_API void glVertex3iv( const GLint *v )
 {
 	D3D_AddVertex( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glVertex3s( GLshort x, GLshort y, GLshort z )
+OPENGL_API void glVertex3s( GLshort x, GLshort y, GLshort z )
 {
 	D3D_AddVertex( x, y, z );
 }
-OPENGL_API void WINAPI glVertex3sv( const GLshort *v )
+OPENGL_API void glVertex3sv( const GLshort *v )
 {
 	D3D_AddVertex( v[0], v[1], v[2] );
 }
-OPENGL_API void WINAPI glVertex4d( GLdouble x, GLdouble y, GLdouble z, GLdouble w )
+OPENGL_API void glVertex4d( GLdouble x, GLdouble y, GLdouble z, GLdouble w )
 {
 	D3D_AddVertex( x, y, z, w );
 }
-OPENGL_API void WINAPI glVertex4dv( const GLdouble *v )
+OPENGL_API void glVertex4dv( const GLdouble *v )
 {
 	D3D_AddVertex( v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glVertex4f( GLfloat x, GLfloat y, GLfloat z, GLfloat w )
+OPENGL_API void glVertex4f( GLfloat x, GLfloat y, GLfloat z, GLfloat w )
 {
 	D3D_AddVertex( x, y, z, w );
 }
-OPENGL_API void WINAPI glVertex4fv( const GLfloat *v )
+OPENGL_API void glVertex4fv( const GLfloat *v )
 {
 	D3D_AddVertex( v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glVertex4i( GLint x, GLint y, GLint z, GLint w )
+OPENGL_API void glVertex4i( GLint x, GLint y, GLint z, GLint w )
 {
 	D3D_AddVertex( x, y, z, w );
 }
-OPENGL_API void WINAPI glVertex4iv( const GLint *v )
+OPENGL_API void glVertex4iv( const GLint *v )
 {
 	D3D_AddVertex( v[0], v[1], v[2], v[3] );
 }
-OPENGL_API void WINAPI glVertex4s( GLshort x, GLshort y, GLshort z, GLshort w )
+OPENGL_API void glVertex4s( GLshort x, GLshort y, GLshort z, GLshort w )
 {
 	D3D_AddVertex( x, y, z, w );
 }
-OPENGL_API void WINAPI glVertex4sv( const GLshort *v )
+OPENGL_API void glVertex4sv( const GLshort *v )
 {
 	D3D_AddVertex( v[0], v[1], v[2], v[3] );
 }
@@ -1115,7 +1115,7 @@ OPENGL_API void WINAPI glVertex4sv( const GLshort *v )
 //=========================================
 // Begin/End pair
 //=========================================
-OPENGL_API void WINAPI glBegin( GLenum mode )
+OPENGL_API void glBegin( GLenum mode )
 {
 	D3DState_Check( );
 	D3DState_AssureBeginScene( );
@@ -1123,7 +1123,7 @@ OPENGL_API void WINAPI glBegin( GLenum mode )
 	D3DGlobal.pIMBuffer->Begin( mode );
 }
 
-OPENGL_API void WINAPI glEnd( )
+OPENGL_API void glEnd( )
 {
 	assert( D3DGlobal.pIMBuffer != NULL );
 	D3DGlobal.pIMBuffer->End( );
@@ -1145,35 +1145,35 @@ template<typename T> inline void D3D_Rect( T x1, T y1, T x2, T y2 )
 	D3DGlobal.pIMBuffer->End( );
 }
 
-OPENGL_API void WINAPI glRectd( GLdouble x1, GLdouble y1, GLdouble x2, GLdouble y2 )
+OPENGL_API void glRectd( GLdouble x1, GLdouble y1, GLdouble x2, GLdouble y2 )
 {
 	D3D_Rect( x1, y1, x2, y2 );
 }
-OPENGL_API void WINAPI glRectdv( const GLdouble *v1, const GLdouble *v2 )
+OPENGL_API void glRectdv( const GLdouble *v1, const GLdouble *v2 )
 {
 	D3D_Rect( v1[0], v1[1], v2[0], v2[1] );
 }
-OPENGL_API void WINAPI glRectf( GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2 )
+OPENGL_API void glRectf( GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2 )
 {
 	D3D_Rect( x1, y1, x2, y2 );
 }
-OPENGL_API void WINAPI glRectfv( const GLfloat *v1, const GLfloat *v2 )
+OPENGL_API void glRectfv( const GLfloat *v1, const GLfloat *v2 )
 {
 	D3D_Rect( v1[0], v1[1], v2[0], v2[1] );
 }
-OPENGL_API void WINAPI glRecti( GLint x1, GLint y1, GLint x2, GLint y2 )
+OPENGL_API void glRecti( GLint x1, GLint y1, GLint x2, GLint y2 )
 {
 	D3D_Rect( x1, y1, x2, y2 );
 }
-OPENGL_API void WINAPI glRectiv( const GLint *v1, const GLint *v2 )
+OPENGL_API void glRectiv( const GLint *v1, const GLint *v2 )
 {
 	D3D_Rect( v1[0], v1[1], v2[0], v2[1] );
 }
-OPENGL_API void WINAPI glRects( GLshort x1, GLshort y1, GLshort x2, GLshort y2 )
+OPENGL_API void glRects( GLshort x1, GLshort y1, GLshort x2, GLshort y2 )
 {
 	D3D_Rect( x1, y1, x2, y2 );
 }
-OPENGL_API void WINAPI glRectsv( const GLshort *v1, const GLshort *v2 )
+OPENGL_API void glRectsv( const GLshort *v1, const GLshort *v2 )
 {
 	D3D_Rect( v1[0], v1[1], v2[0], v2[1] );
 }

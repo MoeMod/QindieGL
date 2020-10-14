@@ -606,7 +606,7 @@ void D3DVABuffer :: DrawPrimitive()
 
 //------------------------------------------------------------------------------------------------------
 
-OPENGL_API void WINAPI glColorPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
+OPENGL_API void glColorPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
 {
 	D3DState.ClientVertexArrayState.colorInfo.elementCount = size;
 	D3DState.ClientVertexArrayState.colorInfo.elementType = type;
@@ -615,21 +615,21 @@ OPENGL_API void WINAPI glColorPointer( GLint size, GLenum type, GLsizei stride, 
 	D3DState.ClientVertexArrayState.colorInfo._internal.compiledFirst = 0;
 	D3DState.ClientVertexArrayState.colorInfo._internal.compiledLast = -1;
 }
-OPENGL_API void WINAPI glSecondaryColorPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
+OPENGL_API void glSecondaryColorPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
 {
 	D3DState.ClientVertexArrayState.color2Info.elementCount = size;
 	D3DState.ClientVertexArrayState.color2Info.elementType = type;
 	D3DState.ClientVertexArrayState.color2Info.stride = stride;
 	D3DState.ClientVertexArrayState.color2Info.data = reinterpret_cast<const GLubyte*>(pointer);
 }
-OPENGL_API void WINAPI glFogCoordPointer( GLenum type, GLsizei stride, const GLvoid *pointer )
+OPENGL_API void glFogCoordPointer( GLenum type, GLsizei stride, const GLvoid *pointer )
 {
 	D3DState.ClientVertexArrayState.fogInfo.elementCount = 1;
 	D3DState.ClientVertexArrayState.fogInfo.elementType = type;
 	D3DState.ClientVertexArrayState.fogInfo.stride = stride;
 	D3DState.ClientVertexArrayState.fogInfo.data = reinterpret_cast<const GLubyte*>(pointer);
 }
-OPENGL_API void WINAPI glNormalPointer( GLenum type, GLsizei stride, const GLvoid *pointer )
+OPENGL_API void glNormalPointer( GLenum type, GLsizei stride, const GLvoid *pointer )
 {
 	D3DState.ClientVertexArrayState.normalInfo.elementCount = 3;
 	D3DState.ClientVertexArrayState.normalInfo.elementType = type;
@@ -638,7 +638,7 @@ OPENGL_API void WINAPI glNormalPointer( GLenum type, GLsizei stride, const GLvoi
 	D3DState.ClientVertexArrayState.normalInfo._internal.compiledFirst = 0;
 	D3DState.ClientVertexArrayState.normalInfo._internal.compiledLast = -1;
 }
-OPENGL_API void WINAPI glTexCoordPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
+OPENGL_API void glTexCoordPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
 {
 	D3DState.ClientVertexArrayState.texCoordInfo[D3DState.ClientTextureState.currentClientTMU].elementCount = size;
 	D3DState.ClientVertexArrayState.texCoordInfo[D3DState.ClientTextureState.currentClientTMU].elementType = type;
@@ -647,7 +647,7 @@ OPENGL_API void WINAPI glTexCoordPointer( GLint size, GLenum type, GLsizei strid
 	D3DState.ClientVertexArrayState.texCoordInfo[D3DState.ClientTextureState.currentClientTMU]._internal.compiledFirst = 0;
 	D3DState.ClientVertexArrayState.texCoordInfo[D3DState.ClientTextureState.currentClientTMU]._internal.compiledLast = -1;
 }
-OPENGL_API void WINAPI glVertexPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
+OPENGL_API void glVertexPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
 {
 	D3DState.ClientVertexArrayState.vertexInfo.elementCount = size;
 	D3DState.ClientVertexArrayState.vertexInfo.elementType = type;
@@ -656,16 +656,16 @@ OPENGL_API void WINAPI glVertexPointer( GLint size, GLenum type, GLsizei stride,
 	D3DState.ClientVertexArrayState.vertexInfo._internal.compiledFirst = 0;
 	D3DState.ClientVertexArrayState.vertexInfo._internal.compiledLast = -1;
 }
-OPENGL_API void WINAPI glEdgeFlagPointer( GLsizei, const GLvoid* )
+OPENGL_API void glEdgeFlagPointer( GLsizei, const GLvoid* )
 {
 	logPrintf("WARNING: glEdgeFlagPointer is not supported\n");
 }
-OPENGL_API void WINAPI glIndexPointer( GLenum, GLsizei, const GLvoid* )
+OPENGL_API void glIndexPointer( GLenum, GLsizei, const GLvoid* )
 {
 	logPrintf("WARNING: glIndexPointer is not supported\n");
 }
 
-OPENGL_API void WINAPI glInterleavedArrays( GLenum format, GLsizei stride, const GLvoid *pointer )
+OPENGL_API void glInterleavedArrays( GLenum format, GLsizei stride, const GLvoid *pointer )
 {
 	D3DState.ClientVertexArrayState.vertexArrayEnable = VA_ENABLE_VERTEX_BIT;
 	D3DState.ClientVertexArrayState.vertexInfo._internal.compiledFirst = 0;
@@ -950,7 +950,7 @@ OPENGL_API void WINAPI glInterleavedArrays( GLenum format, GLsizei stride, const
 	}
 }
 
-OPENGL_API void WINAPI glArrayElement( GLint i )
+OPENGL_API void glArrayElement( GLint i )
 {
 	assert( D3DGlobal.pIMBuffer != nullptr );
 	if (!(D3DState.ClientVertexArrayState.vertexArrayEnable & VA_ENABLE_VERTEX_BIT)) {
@@ -1126,27 +1126,27 @@ static void internal_DrawElements( GLenum mode, GLuint start, GLuint end, GLsize
 //		D3DState.CurrentState.currentColor = 0xFFFFFFFF;
 }
 
-OPENGL_API void WINAPI glDrawArrays( GLenum mode, GLint first, GLsizei count )
+OPENGL_API void glDrawArrays( GLenum mode, GLint first, GLsizei count )
 {
 	D3DState_Check();
 	D3DState_AssureBeginScene();
 	internal_DrawArrays( mode, first, count );
 }
-OPENGL_API void WINAPI glDrawElements( GLenum mode, GLsizei count, GLenum type, const GLvoid *indices )
+OPENGL_API void glDrawElements( GLenum mode, GLsizei count, GLenum type, const GLvoid *indices )
 {
 	D3DState_Check();
 	D3DState_AssureBeginScene();
 	internal_DrawElements( mode, ~0u, 0, count, type, indices );
 }
 
-OPENGL_API void WINAPI glDrawRangeElements( GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const GLvoid *indices )
+OPENGL_API void glDrawRangeElements( GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const GLvoid *indices )
 {
 	D3DState_Check();
 	D3DState_AssureBeginScene();
 	internal_DrawElements( mode, start, end, count, type, indices );
 }
 
-OPENGL_API void WINAPI glMultiDrawArrays( GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount )
+OPENGL_API void glMultiDrawArrays( GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount )
 {
 	D3DState_Check();
 	D3DState_AssureBeginScene();
@@ -1154,7 +1154,7 @@ OPENGL_API void WINAPI glMultiDrawArrays( GLenum mode, const GLint *first, const
 		if (count[i] > 0) internal_DrawArrays( mode, first[i], count[i] );
 }
 
-OPENGL_API void WINAPI glMultiDrawElements( GLenum mode, GLsizei *count, GLenum type, const GLvoid **indices, GLsizei primcount )
+OPENGL_API void glMultiDrawElements( GLenum mode, GLsizei *count, GLenum type, const GLvoid **indices, GLsizei primcount )
 {
 	D3DState_Check();
 	D3DState_AssureBeginScene();
@@ -1178,7 +1178,7 @@ static inline bool CheckCompiledArraySize( T **arr, GLsizei *curSize, GLsizei re
 	return (*arr != nullptr);
 }
 
-OPENGL_API void WINAPI glUnlockArrays( void )
+OPENGL_API void glUnlockArrays( void )
 {
 	if (D3DState.ClientVertexArrayState.vertexInfo._internal.compiledLast >= 0) {
 		D3DState.ClientVertexArrayState.vertexInfo._internal.compiledFirst = 0;
@@ -1200,7 +1200,7 @@ OPENGL_API void WINAPI glUnlockArrays( void )
 	}
 }
 
-OPENGL_API void WINAPI glLockArrays( GLint first, GLsizei count )
+OPENGL_API void glLockArrays( GLint first, GLsizei count )
 {
 	//compile vertex, normal, texcoord and color arrays
 	//secondary color and fog coord arrays are NOT compiled

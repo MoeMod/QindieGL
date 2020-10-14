@@ -1105,7 +1105,7 @@ HRESULT D3DPixels_Pack( int width, int height, int depth, int hpitch, int vpitch
 
 //=================================
 
-OPENGL_API void WINAPI glReadPixels( GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLvoid *pixels )
+OPENGL_API void glReadPixels( GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLvoid *pixels )
 {
 	if(!D3DGlobal.pDevice) {
 		D3DGlobal.lastError = E_FAIL;
@@ -1321,7 +1321,7 @@ OPENGL_API void WINAPI glReadPixels( GLint x, GLint y, GLsizei width, GLsizei he
 		lpRenderTarget->Release();
 }
 
-OPENGL_API void WINAPI glCopyPixels( GLint, GLint, GLsizei, GLsizei, GLenum )
+OPENGL_API void glCopyPixels( GLint, GLint, GLsizei, GLsizei, GLenum )
 {
 	logPrintf("WARNING: glCopyPixels is not supported\n");
 }
@@ -1331,7 +1331,7 @@ OPENGL_API void glDrawPixels( GLsizei, GLsizei, GLenum, GLenum, const GLvoid* )
 	logPrintf("WARNING: glDrawPixels is not supported\n");
 }
 
-OPENGL_API void WINAPI glGetPixelMapfv( GLenum map, GLfloat *values )
+OPENGL_API void glGetPixelMapfv( GLenum map, GLfloat *values )
 {
 	GLfloat *mapPointer;
 	DWORD mapSize;
@@ -1362,7 +1362,7 @@ OPENGL_API void WINAPI glGetPixelMapfv( GLenum map, GLfloat *values )
 	memcpy( values, mapPointer, mapSize * sizeof(GLfloat) );
 }
 
-OPENGL_API void WINAPI glGetPixelMapuiv( GLenum map, GLuint *values )
+OPENGL_API void glGetPixelMapuiv( GLenum map, GLuint *values )
 {
 	GLfloat *mapPointer;
 	DWORD mapSize;
@@ -1393,7 +1393,7 @@ OPENGL_API void WINAPI glGetPixelMapuiv( GLenum map, GLuint *values )
 	for(DWORD i = 0; i < mapSize; ++i)
 		values[i] =(GLuint)(mapPointer[i] * UINT_MAX);
 }
-OPENGL_API void WINAPI glGetPixelMapusv( GLenum map, GLushort *values )
+OPENGL_API void glGetPixelMapusv( GLenum map, GLushort *values )
 {
 	GLfloat *mapPointer;
 	DWORD mapSize;
@@ -1425,7 +1425,7 @@ OPENGL_API void WINAPI glGetPixelMapusv( GLenum map, GLushort *values )
 		values[i] = static_cast<GLushort>(mapPointer[i] * USHRT_MAX);
 }
 
-OPENGL_API void WINAPI glPixelMapfv( GLenum map, GLsizei mapsize, const GLfloat *values )
+OPENGL_API void glPixelMapfv( GLenum map, GLsizei mapsize, const GLfloat *values )
 {
 	GLfloat *mapPointer;
 	DWORD *mapSizePointer;
@@ -1462,7 +1462,7 @@ OPENGL_API void WINAPI glPixelMapfv( GLenum map, GLsizei mapsize, const GLfloat 
 	memcpy( mapPointer, values, mapsize * sizeof(GLfloat) );
 }
 
-OPENGL_API void WINAPI glPixelMapuiv( GLenum map, GLsizei mapsize, const GLuint *values )
+OPENGL_API void glPixelMapuiv( GLenum map, GLsizei mapsize, const GLuint *values )
 {
 	GLfloat *mapPointer;
 	DWORD *mapSizePointer;
@@ -1500,7 +1500,7 @@ OPENGL_API void WINAPI glPixelMapuiv( GLenum map, GLsizei mapsize, const GLuint 
 		mapPointer[i] = static_cast<GLfloat>(values[i] / UINT_MAX);
 }
 
-OPENGL_API void WINAPI glPixelMapusv( GLenum map, GLsizei mapsize, const GLushort *values )
+OPENGL_API void glPixelMapusv( GLenum map, GLsizei mapsize, const GLushort *values )
 {
 	GLfloat *mapPointer;
 	DWORD *mapSizePointer;
@@ -1538,7 +1538,7 @@ OPENGL_API void WINAPI glPixelMapusv( GLenum map, GLsizei mapsize, const GLushor
 		mapPointer[i] = static_cast<GLfloat>(values[i] / USHRT_MAX);
 }
 
-OPENGL_API void WINAPI glPixelStorei( GLenum pname, GLint param )
+OPENGL_API void glPixelStorei( GLenum pname, GLint param )
 {
 	switch(pname) {
 	case GL_UNPACK_SWAP_BYTES:
@@ -1605,12 +1605,12 @@ OPENGL_API void WINAPI glPixelStorei( GLenum pname, GLint param )
 		break;
 	}
 }
-OPENGL_API void WINAPI glPixelStoref( GLenum pname, GLfloat param )
+OPENGL_API void glPixelStoref( GLenum pname, GLfloat param )
 {
 	glPixelStorei( pname,(GLint)param );
 }
 
-OPENGL_API void WINAPI glPixelTransferi( GLenum pname, GLint param )
+OPENGL_API void glPixelTransferi( GLenum pname, GLint param )
 {
 	switch(pname) {
 	case GL_MAP_COLOR:
@@ -1655,7 +1655,7 @@ OPENGL_API void WINAPI glPixelTransferi( GLenum pname, GLint param )
 		break;
 	}
 }
-OPENGL_API void WINAPI glPixelTransferf( GLenum pname, GLfloat param )
+OPENGL_API void glPixelTransferf( GLenum pname, GLfloat param )
 {
 	switch(pname) {
 	case GL_MAP_COLOR:
@@ -1701,108 +1701,108 @@ OPENGL_API void WINAPI glPixelTransferf( GLenum pname, GLfloat param )
 	}
 }
 
-OPENGL_API void WINAPI glPixelZoom( GLfloat, GLfloat )
+OPENGL_API void glPixelZoom( GLfloat, GLfloat )
 {
 	logPrintf("WARNING: glPixelZoom is not supported\n");
 }
 
-OPENGL_API void WINAPI glRasterPos2d( GLdouble, GLdouble )
+OPENGL_API void glRasterPos2d( GLdouble, GLdouble )
 {
 	logPrintf("WARNING: glRasterPos2d is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos2dv( const GLdouble* )
+OPENGL_API void glRasterPos2dv( const GLdouble* )
 {
 	logPrintf("WARNING: glRasterPos2dv is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos2f( GLfloat, GLfloat )
+OPENGL_API void glRasterPos2f( GLfloat, GLfloat )
 {
 	logPrintf("WARNING: glRasterPos2f is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos2fv( const GLfloat* )
+OPENGL_API void glRasterPos2fv( const GLfloat* )
 {
 	logPrintf("WARNING: glRasterPos2fv is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos2i( GLint, GLint )
+OPENGL_API void glRasterPos2i( GLint, GLint )
 {
 	logPrintf("WARNING: glRasterPos2i is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos2iv( const GLint* )
+OPENGL_API void glRasterPos2iv( const GLint* )
 {
 	logPrintf("WARNING: glRasterPos2iv is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos2s( GLshort, GLshort )
+OPENGL_API void glRasterPos2s( GLshort, GLshort )
 {
 	logPrintf("WARNING: glRasterPos2s is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos2sv( const GLshort* )
+OPENGL_API void glRasterPos2sv( const GLshort* )
 {
 	logPrintf("WARNING: glRasterPos2sv is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos3d( GLdouble, GLdouble, GLdouble )
+OPENGL_API void glRasterPos3d( GLdouble, GLdouble, GLdouble )
 {
 	logPrintf("WARNING: glRasterPos3d is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos3dv( const GLdouble* )
+OPENGL_API void glRasterPos3dv( const GLdouble* )
 {
 	logPrintf("WARNING: glRasterPos3dv is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos3f( GLfloat, GLfloat, GLfloat )
+OPENGL_API void glRasterPos3f( GLfloat, GLfloat, GLfloat )
 {
 	logPrintf("WARNING: glRasterPos3f is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos3fv( const GLfloat* )
+OPENGL_API void glRasterPos3fv( const GLfloat* )
 {
 	logPrintf("WARNING: glRasterPos3fv is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos3i( GLint, GLint, GLint )
+OPENGL_API void glRasterPos3i( GLint, GLint, GLint )
 {
 	logPrintf("WARNING: glRasterPos3i is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos3iv( const GLint* )
+OPENGL_API void glRasterPos3iv( const GLint* )
 {
 	logPrintf("WARNING: glRasterPos3iv is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos3s( GLshort, GLshort, GLshort )
+OPENGL_API void glRasterPos3s( GLshort, GLshort, GLshort )
 {
 	logPrintf("WARNING: glRasterPos3s is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos3sv( const GLshort* )
+OPENGL_API void glRasterPos3sv( const GLshort* )
 {
 	logPrintf("WARNING: glRasterPos3sv is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos4d( GLdouble, GLdouble, GLdouble, GLdouble )
+OPENGL_API void glRasterPos4d( GLdouble, GLdouble, GLdouble, GLdouble )
 {
 	logPrintf("WARNING: glRasterPos4d is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos4dv( const GLdouble* )
+OPENGL_API void glRasterPos4dv( const GLdouble* )
 {
 	logPrintf("WARNING: glRasterPos4dv is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos4f( GLfloat, GLfloat, GLfloat, GLfloat )
+OPENGL_API void glRasterPos4f( GLfloat, GLfloat, GLfloat, GLfloat )
 {
 	logPrintf("WARNING: glRasterPos4f is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos4fv( const GLfloat* )
+OPENGL_API void glRasterPos4fv( const GLfloat* )
 {
 	logPrintf("WARNING: glRasterPos4fv is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos4i( GLint, GLint, GLint, GLint )
+OPENGL_API void glRasterPos4i( GLint, GLint, GLint, GLint )
 {
 	logPrintf("WARNING: glRasterPos4i is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos4iv( const GLint* )
+OPENGL_API void glRasterPos4iv( const GLint* )
 {
 	logPrintf("WARNING: glRasterPos4iv is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos4s( GLshort, GLshort, GLshort, GLshort )
+OPENGL_API void glRasterPos4s( GLshort, GLshort, GLshort, GLshort )
 {
 	logPrintf("WARNING: glRasterPos4s is not supported\n");
 }
-OPENGL_API void WINAPI glRasterPos4sv( const GLshort* )
+OPENGL_API void glRasterPos4sv( const GLshort* )
 {
 	logPrintf("WARNING: glRasterPos4sv is not supported\n");
 }
-OPENGL_API void WINAPI glBitmap( GLsizei, GLsizei, GLfloat, GLfloat, GLfloat, GLfloat, const GLubyte* )
+OPENGL_API void glBitmap( GLsizei, GLsizei, GLfloat, GLfloat, GLfloat, GLfloat, const GLubyte* )
 {
 	logPrintf("WARNING: glBitmap is not supported\n");
 }

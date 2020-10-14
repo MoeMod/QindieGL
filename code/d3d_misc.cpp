@@ -27,7 +27,7 @@
 // Misc functions
 //==================================================================================
 
-OPENGL_API void WINAPI glClear( GLbitfield mask )
+OPENGL_API void glClear( GLbitfield mask )
 {
 	if (!D3DGlobal.initialized) {
 		D3DGlobal.lastError = E_FAIL;
@@ -41,7 +41,7 @@ OPENGL_API void WINAPI glClear( GLbitfield mask )
 	HRESULT hr = D3DGlobal.pDevice->Clear( 0, nullptr, clearMask & ~(D3DGlobal.ignoreClearMask), D3DState.ColorBufferState.clearColor, D3DState.DepthBufferState.clearDepth, D3DState.StencilBufferState.clearStencil );
 	if (FAILED(hr)) D3DGlobal.lastError = hr;
 }
-OPENGL_API void WINAPI glClearColor( GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha )
+OPENGL_API void glClearColor( GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha )
 {
 	DWORD da = (DWORD)(alpha * 255);
 	DWORD dr = (DWORD)(red * 255);
@@ -49,24 +49,24 @@ OPENGL_API void WINAPI glClearColor( GLclampf red, GLclampf green, GLclampf blue
 	DWORD db = (DWORD)(blue * 255);
 	D3DState.ColorBufferState.clearColor = D3DCOLOR_ARGB( da, dr, dg, db );
 }
-OPENGL_API void WINAPI glClearDepth( GLclampd depth )
+OPENGL_API void glClearDepth( GLclampd depth )
 {
 	D3DState.DepthBufferState.clearDepth = (float)depth;
 }
-OPENGL_API void WINAPI glClearStencil( GLint s )
+OPENGL_API void glClearStencil( GLint s )
 {
 	D3DState.StencilBufferState.clearStencil = s;
 }
-OPENGL_API void WINAPI glClearIndex( GLfloat )
+OPENGL_API void glClearIndex( GLfloat )
 {
 	// d3d doesn't support color index mode
 }
-OPENGL_API void WINAPI glClearAccum( GLfloat, GLfloat, GLfloat, GLfloat )
+OPENGL_API void glClearAccum( GLfloat, GLfloat, GLfloat, GLfloat )
 {
 	// d3d doesn't support accumulator
 	logPrintf("WARNING: glClearAccum: accumulator is not supported\n");
 }
-OPENGL_API void WINAPI glColorMask( GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha )
+OPENGL_API void glColorMask( GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha )
 {
 	DWORD mask = 0;
 	if (red) mask |= D3DCOLORWRITEENABLE_RED;
@@ -78,21 +78,21 @@ OPENGL_API void WINAPI glColorMask( GLboolean red, GLboolean green, GLboolean bl
 		D3DState_SetRenderState( D3DRS_COLORWRITEENABLE, mask );
 	}
 }
-OPENGL_API void WINAPI glCullFace( GLenum mode )
+OPENGL_API void glCullFace( GLenum mode )
 {
 	if (D3DState.PolygonState.cullMode != mode) {
 		D3DState.PolygonState.cullMode = mode;
 		D3DState_SetCullMode();
 	}
 }
-OPENGL_API void WINAPI glFrontFace( GLenum mode )
+OPENGL_API void glFrontFace( GLenum mode )
 {
 	if (D3DState.PolygonState.frontFace != mode) {
 		D3DState.PolygonState.frontFace = mode;
 		D3DState_SetCullMode();
 	}
 }
-OPENGL_API void WINAPI glDepthFunc( GLenum func )
+OPENGL_API void glDepthFunc( GLenum func )
 {
 	DWORD dfunc = UTIL_GLtoD3DCmpFunc(func);
 	if (dfunc != D3DState.DepthBufferState.depthTestFunc) {
@@ -100,14 +100,14 @@ OPENGL_API void WINAPI glDepthFunc( GLenum func )
 		D3DState_SetRenderState( D3DRS_ZFUNC, dfunc );
 	}
 }
-OPENGL_API void WINAPI glDepthMask( GLboolean flag )
+OPENGL_API void glDepthMask( GLboolean flag )
 {
 	if (D3DState.DepthBufferState.depthWriteMask != flag) {
 		D3DState.DepthBufferState.depthWriteMask = flag;
 		D3DState_SetRenderState( D3DRS_ZWRITEENABLE, flag );
 	}
 }
-OPENGL_API void WINAPI glDepthRange( GLclampd zNear, GLclampd zFar )
+OPENGL_API void glDepthRange( GLclampd zNear, GLclampd zFar )
 {
 	D3DState.viewport.MinZ = (float)zNear;
 	D3DState.viewport.MaxZ = (float)zFar;
@@ -118,21 +118,21 @@ OPENGL_API void WINAPI glDepthRange( GLclampd zNear, GLclampd zFar )
 	HRESULT hr = D3DGlobal.pDevice->SetViewport(&D3DState.viewport);
 	if (FAILED(hr)) D3DGlobal.lastError = hr;
 }
-OPENGL_API void WINAPI glIndexMask( GLuint )
+OPENGL_API void glIndexMask( GLuint )
 {
 	// d3d doesn't support color index mode
 }
-OPENGL_API void WINAPI glDrawBuffer( GLenum )
+OPENGL_API void glDrawBuffer( GLenum )
 {
 	// d3d doesn't like us messing with the front buffer, so here
 	// we just silently ignore requests to change the draw buffer
 }
-OPENGL_API void WINAPI glReadBuffer( GLenum )
+OPENGL_API void glReadBuffer( GLenum )
 {
 	// d3d doesn't like us messing with the front buffer, so here
 	// we just silently ignore requests to change the draw buffer
 }
-OPENGL_API void WINAPI glPolygonMode( GLenum face, GLenum mode )
+OPENGL_API void glPolygonMode( GLenum face, GLenum mode )
 {
 	if (face != GL_FRONT_AND_BACK) {
 		logPrintf("WARNING: glPolygonMode: only GL_FRONT_AND_BACK is supported\n");
@@ -145,13 +145,13 @@ OPENGL_API void WINAPI glPolygonMode( GLenum face, GLenum mode )
 		D3DState_SetRenderState( D3DRS_FILLMODE, dmode );
 	}
 }
-OPENGL_API void WINAPI glPolygonOffset( GLfloat factor, GLfloat units )
+OPENGL_API void glPolygonOffset( GLfloat factor, GLfloat units )
 {
 	D3DState.PolygonState.depthBiasFactor = -factor * 0.0025f;
 	D3DState.PolygonState.depthBiasUnits = units * 0.000125f;
 	D3DState_SetDepthBias();
 }
-OPENGL_API void WINAPI glPolygonStipple( const GLubyte* )
+OPENGL_API void glPolygonStipple( const GLubyte* )
 {
 	static bool warningPrinted = false;
 	if (!warningPrinted) {
@@ -159,7 +159,7 @@ OPENGL_API void WINAPI glPolygonStipple( const GLubyte* )
 		logPrintf("WARNING: glPolygonStipple is not supported\n");
 	}
 }
-OPENGL_API void WINAPI glGetPolygonStipple( GLubyte* )
+OPENGL_API void glGetPolygonStipple( GLubyte* )
 {
 	static bool warningPrinted = false;
 	if (!warningPrinted) {
@@ -167,7 +167,7 @@ OPENGL_API void WINAPI glGetPolygonStipple( GLubyte* )
 		logPrintf("WARNING: glGetPolygonStipple is not supported\n");
 	}
 }
-OPENGL_API void WINAPI glLineStipple( GLint, GLushort )
+OPENGL_API void glLineStipple( GLint, GLushort )
 {
 	static bool warningPrinted = false;
 	if (!warningPrinted) {
@@ -175,7 +175,7 @@ OPENGL_API void WINAPI glLineStipple( GLint, GLushort )
 		logPrintf("WARNING: glLineStipple is not supported\n");
 	}
 }
-OPENGL_API void WINAPI glLineWidth( GLfloat )
+OPENGL_API void glLineWidth( GLfloat )
 {
 	static bool warningPrinted = false;
 	if (!warningPrinted) {
@@ -183,7 +183,7 @@ OPENGL_API void WINAPI glLineWidth( GLfloat )
 		logPrintf("WARNING: glLineWidth is not supported\n");
 	}
 }
-OPENGL_API void WINAPI glShadeModel( GLenum mode )
+OPENGL_API void glShadeModel( GLenum mode )
 {
 	const DWORD dmode = (mode == GL_FLAT) ? D3DSHADE_FLAT : D3DSHADE_GOURAUD;
 
@@ -192,7 +192,7 @@ OPENGL_API void WINAPI glShadeModel( GLenum mode )
 		D3DState_SetRenderState( D3DRS_SHADEMODE, dmode );
 	}
 }
-OPENGL_API void WINAPI glPointSize( GLfloat size )
+OPENGL_API void glPointSize( GLfloat size )
 {
 	size = QINDIEGL_MAX( QINDIEGL_MIN( size, D3DGlobal.hD3DCaps.MaxPointSize ), 1.0f );
 	if (D3DState.PointState.pointSize != size) {
@@ -200,20 +200,20 @@ OPENGL_API void WINAPI glPointSize( GLfloat size )
 		D3DState_SetRenderState( D3DRS_POINTSIZE, UTIL_FloatToDword(size) );
 	}
 }
-OPENGL_API void WINAPI glAccum( GLenum, GLfloat )
+OPENGL_API void glAccum( GLenum, GLfloat )
 {
 	// d3d doesn't support accumulator
 	logPrintf("WARNING: glAccum: accumulator is not supported\n");
 }
-OPENGL_API void WINAPI glFlush()
+OPENGL_API void glFlush()
 {
 	// ignore
 }
-OPENGL_API void WINAPI glFinish()
+OPENGL_API void glFinish()
 {
 	// we force a Present in our SwapBuffers function so this is unneeded
 }
-OPENGL_API void WINAPI glViewport( GLint x, GLint y, GLsizei width, GLsizei height )
+OPENGL_API void glViewport( GLint x, GLint y, GLsizei width, GLsizei height )
 {
 	// translate from OpenGL bottom-left to D3D top-left
 	y = D3DGlobal.hCurrentMode.Height - (height + y);
@@ -229,7 +229,7 @@ OPENGL_API void WINAPI glViewport( GLint x, GLint y, GLsizei width, GLsizei heig
 	HRESULT hr = D3DGlobal.pDevice->SetViewport(&D3DState.viewport);
 	if (FAILED(hr)) D3DGlobal.lastError = hr;
 }
-OPENGL_API void WINAPI glScissor( GLint x, GLint y, GLsizei width, GLsizei height )
+OPENGL_API void glScissor( GLint x, GLint y, GLsizei width, GLsizei height )
 {
 	// translate from OpenGL bottom-left to D3D top-left
 	y = D3DGlobal.hCurrentMode.Height - (height + y);
@@ -245,7 +245,7 @@ OPENGL_API void WINAPI glScissor( GLint x, GLint y, GLsizei width, GLsizei heigh
 	HRESULT hr = D3DGlobal.pDevice->SetScissorRect(&D3DState.ScissorState.scissorRect);
 	if (FAILED(hr)) D3DGlobal.lastError = hr;
 }
-OPENGL_API void WINAPI glDebugEntry( DWORD, DWORD )
+OPENGL_API void glDebugEntry( DWORD, DWORD )
 {
 	//what the hell is that?
 }

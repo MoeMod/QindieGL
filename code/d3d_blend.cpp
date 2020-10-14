@@ -30,7 +30,7 @@
 // TODO: add separate blend equation extension support (D3DRS_BLENDOPALPHA)
 //==================================================================================
 
-OPENGL_API void WINAPI glAlphaFunc( GLenum func, GLclampf ref )
+OPENGL_API void glAlphaFunc( GLenum func, GLclampf ref )
 {
 	DWORD dfunc = UTIL_GLtoD3DCmpFunc(func);
 	if (dfunc != D3DState.ColorBufferState.alphaTestFunc) {
@@ -45,7 +45,7 @@ OPENGL_API void WINAPI glAlphaFunc( GLenum func, GLclampf ref )
 	}
 }
 
-OPENGL_API void WINAPI glBlendFunc( GLenum sfactor, GLenum dfactor )
+OPENGL_API void glBlendFunc( GLenum sfactor, GLenum dfactor )
 {
 	if (D3DState.ColorBufferState.glBlendSrc != sfactor) {
 		D3DState.ColorBufferState.glBlendSrc = sfactor;
@@ -82,7 +82,7 @@ OPENGL_API void WINAPI glBlendFunc( GLenum sfactor, GLenum dfactor )
 	}
 }
 
-OPENGL_API void WINAPI glBlendColor( GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha )
+OPENGL_API void glBlendColor( GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha )
 {
 	DWORD da = (DWORD)(alpha * 255);
 	DWORD dr = (DWORD)(red * 255);
@@ -101,7 +101,7 @@ OPENGL_API void WINAPI glBlendColor( GLclampf red, GLclampf green, GLclampf blue
 	}
 }
 
-OPENGL_API void WINAPI glBlendEquation( GLenum mode )
+OPENGL_API void glBlendEquation( GLenum mode )
 {
 	DWORD func = UTIL_GLtoD3DBlendOp(mode);
 	if (D3DState.ColorBufferState.alphaBlendOp != func) {
@@ -110,12 +110,12 @@ OPENGL_API void WINAPI glBlendEquation( GLenum mode )
 	}
 }
 
-OPENGL_API void WINAPI glLogicOp( GLenum )
+OPENGL_API void glLogicOp( GLenum )
 {
 	logPrintf("WARNING: glLogicOp is not supported\n");
 }
 
-OPENGL_API void WINAPI glFogfv( GLenum pname, const GLfloat *params )
+OPENGL_API void glFogfv( GLenum pname, const GLfloat *params )
 {
 	switch (pname) {
 	case GL_FOG_MODE:
@@ -173,21 +173,21 @@ OPENGL_API void WINAPI glFogfv( GLenum pname, const GLfloat *params )
 	}
 }
 
-OPENGL_API void WINAPI glFogf( GLenum pname, GLfloat param )
+OPENGL_API void glFogf( GLenum pname, GLfloat param )
 {
 	GLfloat fparams[4];
 	fparams[0] = param;
 	glFogfv( pname, fparams );
 }
 
-OPENGL_API void WINAPI glFogi( GLenum pname, GLint param )
+OPENGL_API void glFogi( GLenum pname, GLint param )
 {
 	GLfloat fparams[4];
 	fparams[0] = (GLfloat)param;
 	glFogfv( pname, fparams );
 }
 
-OPENGL_API void WINAPI glFogiv( GLenum pname, const GLint *params )
+OPENGL_API void glFogiv( GLenum pname, const GLint *params )
 {
 	GLfloat fparams[4];
 	fparams[0] = (GLfloat)params[0];

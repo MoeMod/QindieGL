@@ -371,39 +371,39 @@ static void GetTexGen( int stage, int coord, GLenum pname, T *params )
 	}
 }
 
-OPENGL_API void WINAPI glTexGenf( GLenum coord,  GLenum pname,  GLfloat param )
+OPENGL_API void glTexGenf( GLenum coord,  GLenum pname,  GLfloat param )
 {
 	SetupTexGen( D3DState.TextureState.currentTMU, coord - GL_S, pname, &param );
 }
-OPENGL_API void WINAPI glTexGend( GLenum coord,  GLenum pname,  GLdouble param )
+OPENGL_API void glTexGend( GLenum coord,  GLenum pname,  GLdouble param )
 {
 	SetupTexGen( D3DState.TextureState.currentTMU, coord - GL_S, pname, &param );
 }
-OPENGL_API void WINAPI glTexGeni( GLenum coord,  GLenum pname,  GLint param )
+OPENGL_API void glTexGeni( GLenum coord,  GLenum pname,  GLint param )
 {
 	SetupTexGen( D3DState.TextureState.currentTMU, coord - GL_S, pname, &param );
 }
-OPENGL_API void WINAPI glTexGenfv( GLenum coord,  GLenum pname,  const GLfloat *params )
+OPENGL_API void glTexGenfv( GLenum coord,  GLenum pname,  const GLfloat *params )
 {
 	SetupTexGen( D3DState.TextureState.currentTMU, coord - GL_S, pname, params );
 }
-OPENGL_API void WINAPI glTexGendv( GLenum coord,  GLenum pname,  const GLdouble *params )
+OPENGL_API void glTexGendv( GLenum coord,  GLenum pname,  const GLdouble *params )
 {
 	SetupTexGen( D3DState.TextureState.currentTMU, coord - GL_S, pname, params );
 }
-OPENGL_API void WINAPI glTexGeniv( GLenum coord,  GLenum pname,  const GLint *params )
+OPENGL_API void glTexGeniv( GLenum coord,  GLenum pname,  const GLint *params )
 {
 	SetupTexGen( D3DState.TextureState.currentTMU, coord - GL_S, pname, params );
 }
-OPENGL_API void WINAPI glGetTexGenfv( GLenum coord,  GLenum pname,  GLfloat *params )
+OPENGL_API void glGetTexGenfv( GLenum coord,  GLenum pname,  GLfloat *params )
 {
 	GetTexGen( D3DState.TextureState.currentTMU, coord - GL_S, pname, params );
 }
-OPENGL_API void WINAPI glGetTexGendv( GLenum coord,  GLenum pname,  GLdouble *params )
+OPENGL_API void glGetTexGendv( GLenum coord,  GLenum pname,  GLdouble *params )
 {
 	GetTexGen( D3DState.TextureState.currentTMU, coord - GL_S, pname, params );
 }
-OPENGL_API void WINAPI glGetTexGeniv( GLenum coord,  GLenum pname,  GLint *params )
+OPENGL_API void glGetTexGeniv( GLenum coord,  GLenum pname,  GLint *params )
 {
 	GetTexGen( D3DState.TextureState.currentTMU, coord - GL_S, pname, params );
 }

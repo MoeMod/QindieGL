@@ -29,7 +29,7 @@
 // BIG TODO!
 //==================================================================================
 
-OPENGL_API void WINAPI glListBase( GLuint )
+OPENGL_API void glListBase( GLuint )
 {
 	static bool warningPrinted = false;
 	if( !warningPrinted ) {
@@ -38,7 +38,7 @@ OPENGL_API void WINAPI glListBase( GLuint )
 	}	
 }
 
-OPENGL_API void WINAPI glNewList( GLuint, GLenum )
+OPENGL_API void glNewList( GLuint, GLenum )
 {
 	static bool warningPrinted = false;
 	if( !warningPrinted ) {
@@ -47,7 +47,7 @@ OPENGL_API void WINAPI glNewList( GLuint, GLenum )
 	}	
 }
 
-OPENGL_API void WINAPI glEndList()
+OPENGL_API void glEndList()
 {
 	static bool warningPrinted = false;
 	if( !warningPrinted ) {
@@ -56,7 +56,7 @@ OPENGL_API void WINAPI glEndList()
 	}
 }
 
-OPENGL_API void WINAPI glCallList( GLuint )
+OPENGL_API void glCallList( GLuint )
 {
 	static bool warningPrinted = false;
 	if( !warningPrinted ) {
@@ -65,7 +65,7 @@ OPENGL_API void WINAPI glCallList( GLuint )
 	}
 }
 
-OPENGL_API void WINAPI glCallLists( GLsizei, GLenum, const GLvoid* )
+OPENGL_API void glCallLists( GLsizei, GLenum, const GLvoid* )
 {
 	static bool warningPrinted = false;
 	if( !warningPrinted ) {
@@ -74,7 +74,7 @@ OPENGL_API void WINAPI glCallLists( GLsizei, GLenum, const GLvoid* )
 	}
 }
 
-OPENGL_API void WINAPI glDeleteLists( GLuint, GLsizei )
+OPENGL_API void glDeleteLists( GLuint, GLsizei )
 {
 	static bool warningPrinted = false;
 	if( !warningPrinted ) {
@@ -83,7 +83,7 @@ OPENGL_API void WINAPI glDeleteLists( GLuint, GLsizei )
 	}
 }
 
-OPENGL_API GLuint WINAPI glGenLists( GLsizei )
+OPENGL_API GLuint glGenLists( GLsizei )
 {
 	static bool warningPrinted = false;
 	if( !warningPrinted ) {
@@ -93,7 +93,7 @@ OPENGL_API GLuint WINAPI glGenLists( GLsizei )
 	return 0;
 }
 
-OPENGL_API GLboolean WINAPI glIsList( GLuint )
+OPENGL_API GLboolean glIsList( GLuint )
 {
 	static bool warningPrinted = false;
 	if( !warningPrinted ) {

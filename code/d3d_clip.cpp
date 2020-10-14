@@ -30,7 +30,7 @@
 // FIXME: cache the inverse transpose of modelview matrix?
 //==================================================================================
 
-OPENGL_API void WINAPI glClipPlane( GLenum plane,  const GLdouble *equation )
+OPENGL_API void glClipPlane( GLenum plane,  const GLdouble *equation )
 {
 	int planeIndex = plane - GL_CLIP_PLANE0;
 	if (planeIndex < 0 || planeIndex >= IMPL_MAX_CLIP_PLANES) {
@@ -54,7 +54,7 @@ OPENGL_API void WINAPI glClipPlane( GLenum plane,  const GLdouble *equation )
 		D3DState.TransformState.clippingModified = TRUE;
 }
 
-OPENGL_API void WINAPI glGetClipPlane( GLenum plane, GLdouble *equation )
+OPENGL_API void glGetClipPlane( GLenum plane, GLdouble *equation )
 {
 	int planeIndex = plane - GL_CLIP_PLANE0;
 	if (planeIndex < 0 || planeIndex >= IMPL_MAX_CLIP_PLANES) {

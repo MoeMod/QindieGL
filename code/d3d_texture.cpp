@@ -1047,24 +1047,24 @@ static void D3DTex_CopySubImage( GLenum target, GLint level, GLint xoffset, GLin
 }
 
 //=========================================
-OPENGL_API void WINAPI glDeleteTextures( GLsizei n, const GLuint *textures )
+OPENGL_API void glDeleteTextures( GLsizei n, const GLuint *textures )
 {
 	assert(D3DGlobal.pObjectBuffer != nullptr);
 	HRESULT hr = D3DGlobal.pObjectBuffer->DeleteObjects( D3D_OBJECT_TYPE_TEXTURE, n, textures );
 	if (FAILED(hr)) D3DGlobal.lastError = hr;
 }
-OPENGL_API void WINAPI glGenTextures( GLsizei n, GLuint *textures )
+OPENGL_API void glGenTextures( GLsizei n, GLuint *textures )
 {
 	assert(D3DGlobal.pObjectBuffer != nullptr);
 	HRESULT hr = D3DGlobal.pObjectBuffer->GenObjects( D3D_OBJECT_TYPE_TEXTURE, n, textures );
 	if (FAILED(hr)) D3DGlobal.lastError = hr;
 }
-OPENGL_API GLboolean WINAPI glIsTexture( GLuint texture )
+OPENGL_API GLboolean glIsTexture( GLuint texture )
 {
 	assert(D3DGlobal.pObjectBuffer != nullptr);
 	return D3DGlobal.pObjectBuffer->IsObject( D3D_OBJECT_TYPE_TEXTURE, texture );
 }
-OPENGL_API GLboolean WINAPI glAreTexturesResident( GLsizei n, const GLuint *textures, GLboolean *residences )
+OPENGL_API GLboolean glAreTexturesResident( GLsizei n, const GLuint *textures, GLboolean *residences )
 {
 	if (n <= 0) {
 		D3DGlobal.lastError = E_INVALIDARG;
@@ -1084,7 +1084,7 @@ OPENGL_API GLboolean WINAPI glAreTexturesResident( GLsizei n, const GLuint *text
 
 	return GL_TRUE;
 }
-OPENGL_API void WINAPI glPrioritizeTextures( GLsizei n, const GLuint *textures, const GLclampf *priorities )
+OPENGL_API void glPrioritizeTextures( GLsizei n, const GLuint *textures, const GLclampf *priorities )
 {
 	if (n < 0) {
 		D3DGlobal.lastError = E_INVALIDARG;
@@ -1102,7 +1102,7 @@ OPENGL_API void WINAPI glPrioritizeTextures( GLsizei n, const GLuint *textures, 
 		}
 	}
 }
-OPENGL_API void WINAPI glBindTexture( GLenum target, GLuint texture )
+OPENGL_API void glBindTexture( GLenum target, GLuint texture )
 {
 	int targetIndex = UTIL_GLTextureTargettoInternalIndex( target );
 	if (targetIndex < 0 || targetIndex >= D3D_TEXTARGET_MAX) {
@@ -1142,85 +1142,85 @@ OPENGL_API void WINAPI glBindTexture( GLenum target, GLuint texture )
 		D3DState.TextureState.textureSamplerStateChanged = TRUE;
 	}
 }
-OPENGL_API void WINAPI glTexImage1D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels )
+OPENGL_API void glTexImage1D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels )
 {
 	//refer 1d-textures to as 2d-textures with height = 1
 	D3DTex_LoadImage( target, level, internalformat, width, 1, 1, border, format, type, pixels );
 }
-OPENGL_API void WINAPI glTexImage2D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels )
+OPENGL_API void glTexImage2D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels )
 {
 	D3DTex_LoadImage( target, level, internalformat, width, height, 1, border, format, type, pixels );
 }
-OPENGL_API void WINAPI glTexImage3D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels )
+OPENGL_API void glTexImage3D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels )
 {
 	D3DTex_LoadImage( target, level, internalformat, width, height, depth, border, format, type, pixels );
 }
-OPENGL_API void WINAPI glTexSubImage1D( GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const GLvoid *pixels )
+OPENGL_API void glTexSubImage1D( GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const GLvoid *pixels )
 {
 	D3DTex_LoadSubImage( target, level, xoffset, 0, 0, width, 1, 1, format, type, pixels );
 }
-OPENGL_API void WINAPI glTexSubImage2D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels )
+OPENGL_API void glTexSubImage2D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels )
 {
 	D3DTex_LoadSubImage( target, level, xoffset, yoffset, 0, width, height, 1, format, type, pixels );
 }
-OPENGL_API void WINAPI glTexSubImage3D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const GLvoid *pixels)
+OPENGL_API void glTexSubImage3D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const GLvoid *pixels)
 {
 	D3DTex_LoadSubImage( target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels );
 }
-OPENGL_API void WINAPI glCompressedTexImage1D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLsizei imageSize, const GLvoid *pixels )
+OPENGL_API void glCompressedTexImage1D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLsizei imageSize, const GLvoid *pixels )
 {
 	//refer 1d-textures to as 2d-textures with height = 1
 	D3DTex_LoadCompressedImage( target, level, internalformat, width, 1, 1, border, imageSize, pixels );
 }
-OPENGL_API void WINAPI glCompressedTexImage2D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid *pixels )
+OPENGL_API void glCompressedTexImage2D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid *pixels )
 {
 	D3DTex_LoadCompressedImage( target, level, internalformat, width, height, 1, border, imageSize, pixels );
 }
-OPENGL_API void WINAPI glCompressedTexImage3D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const GLvoid *pixels )
+OPENGL_API void glCompressedTexImage3D( GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const GLvoid *pixels )
 {
 	D3DTex_LoadCompressedImage( target, level, internalformat, width, height, depth, border, imageSize, pixels );
 }
-OPENGL_API void WINAPI glCompressedTexSubImage1D( GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const GLvoid *pixels )
+OPENGL_API void glCompressedTexSubImage1D( GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const GLvoid *pixels )
 {
 	D3DTex_LoadCompressedSubImage( target, level, xoffset, 0, 0, width, 1, 1, format, imageSize, pixels );
 }
-OPENGL_API void WINAPI glCompressedTexSubImage2D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid *pixels )
+OPENGL_API void glCompressedTexSubImage2D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid *pixels )
 {
 	D3DTex_LoadCompressedSubImage( target, level, xoffset, yoffset, 0, width, height, 1, format, imageSize, pixels );
 }
-OPENGL_API void WINAPI glCompressedTexSubImage3D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid *pixels )
+OPENGL_API void glCompressedTexSubImage3D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid *pixels )
 {
 	D3DTex_LoadCompressedSubImage( target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, pixels );
 }
 
-OPENGL_API void WINAPI glCopyTexImage1D( GLenum target, GLint level, GLenum /*internalFormat*/, GLint x, GLint y, GLsizei width, GLint /*border*/ )
+OPENGL_API void glCopyTexImage1D( GLenum target, GLint level, GLenum /*internalFormat*/, GLint x, GLint y, GLsizei width, GLint /*border*/ )
 {
 	//FIXME: format conversion! border!!
 	D3DTex_CopySubImage( target, level, 0, 0, x, y, width, 1 );
 }
-OPENGL_API void WINAPI glCopyTexImage2D( GLenum target, GLint level, GLenum /*internalFormat*/, GLint x, GLint y, GLsizei width, GLsizei height, GLint /*border*/ )
+OPENGL_API void glCopyTexImage2D( GLenum target, GLint level, GLenum /*internalFormat*/, GLint x, GLint y, GLsizei width, GLsizei height, GLint /*border*/ )
 {
 	//FIXME: format conversion! border!!
 	D3DTex_CopySubImage( target, level, 0, 0, x, y, width, height );
 }
-OPENGL_API void WINAPI glCopyTexImage3D( GLenum /*target*/, GLint /*level*/, GLenum /*internalFormat*/, GLint /*x*/, GLint /*y*/, GLint /*z*/, GLsizei /*width*/, GLsizei /*height*/, GLsizei /*depth*/, GLint /*border*/ )
+OPENGL_API void glCopyTexImage3D( GLenum /*target*/, GLint /*level*/, GLenum /*internalFormat*/, GLint /*x*/, GLint /*y*/, GLint /*z*/, GLsizei /*width*/, GLsizei /*height*/, GLsizei /*depth*/, GLint /*border*/ )
 {
 	logPrintf("WARNING: unimplemented function - glCopyTexImage3D\n");
 }
-OPENGL_API void WINAPI glCopyTexSubImage1D( GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width )
+OPENGL_API void glCopyTexSubImage1D( GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width )
 {
 	D3DTex_CopySubImage( target, level, xoffset, 0, x, y, width, 1 );
 }
-OPENGL_API void WINAPI glCopyTexSubImage2D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height )
+OPENGL_API void glCopyTexSubImage2D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height )
 {
 	D3DTex_CopySubImage( target, level, xoffset, yoffset, x, y, width, height );
 }
-OPENGL_API void WINAPI glCopyTexSubImage3D( GLenum /*target*/, GLint /*level*/, GLint /*xoffset*/, GLint /*yoffset*/, GLint /*zoffset*/, GLint /*x*/, GLint /*y*/, GLint /*z*/, GLsizei /*width*/, GLsizei /*height*/, GLsizei /*depth*/ )
+OPENGL_API void glCopyTexSubImage3D( GLenum /*target*/, GLint /*level*/, GLint /*xoffset*/, GLint /*yoffset*/, GLint /*zoffset*/, GLint /*x*/, GLint /*y*/, GLint /*z*/, GLsizei /*width*/, GLsizei /*height*/, GLsizei /*depth*/ )
 {
 	logPrintf("WARNING: unimplemented function - glCopyTexSubImage3D\n");
 }
 
-OPENGL_API void WINAPI glGetTexImage( GLenum target, GLint level, GLenum format, GLenum type, GLvoid *pixels )
+OPENGL_API void glGetTexImage( GLenum target, GLint level, GLenum format, GLenum type, GLvoid *pixels )
 {
 	int targetIndex = UTIL_GLTextureTargettoInternalIndex( target );
 	if (targetIndex < 0 || targetIndex >= D3D_TEXTARGET_MAX) {
@@ -1242,7 +1242,7 @@ OPENGL_API void WINAPI glGetTexImage( GLenum target, GLint level, GLenum format,
 	if (FAILED(hr)) D3DGlobal.lastError = hr;
 }
 
-OPENGL_API void WINAPI glGetCompressedTexImage( GLenum target, GLint level, GLvoid * /*img*/ )
+OPENGL_API void glGetCompressedTexImage( GLenum target, GLint level, GLvoid * /*img*/ )
 {
 	int targetIndex = UTIL_GLTextureTargettoInternalIndex( target );
 	if (targetIndex < 0 || targetIndex >= D3D_TEXTARGET_MAX) {
@@ -1268,7 +1268,7 @@ OPENGL_API void WINAPI glGetCompressedTexImage( GLenum target, GLint level, GLvo
 	//!TODO
 }
 
-OPENGL_API void WINAPI glTexParameterfv( GLenum target, GLenum pname, const GLfloat *params )
+OPENGL_API void glTexParameterfv( GLenum target, GLenum pname, const GLfloat *params )
 {
 	int targetIndex = UTIL_GLTextureTargettoInternalIndex( target );
 	if (targetIndex < 0 || targetIndex >= D3D_TEXTARGET_MAX) {
@@ -1320,16 +1320,16 @@ OPENGL_API void WINAPI glTexParameterfv( GLenum target, GLenum pname, const GLfl
 	D3DState.TextureState.textureSamplerStateChanged = TRUE;
 }
 
-OPENGL_API void WINAPI glTexParameterf( GLenum target, GLenum pname, GLfloat param )
+OPENGL_API void glTexParameterf( GLenum target, GLenum pname, GLfloat param )
 {
 	glTexParameterfv( target, pname, &param );
 }
-OPENGL_API void WINAPI glTexParameteri( GLenum target, GLenum pname, GLint param )
+OPENGL_API void glTexParameteri( GLenum target, GLenum pname, GLint param )
 {
 	GLfloat fparam = (GLfloat)param;
 	glTexParameterfv( target, pname, &fparam );
 }
-OPENGL_API void WINAPI glTexParameteriv( GLenum target, GLenum pname, const GLint *params )
+OPENGL_API void glTexParameteriv( GLenum target, GLenum pname, const GLint *params )
 {
 	GLfloat fparams[4];
 	fparams[0] = (GLfloat)params[0];
@@ -1339,7 +1339,7 @@ OPENGL_API void WINAPI glTexParameteriv( GLenum target, GLenum pname, const GLin
 	glTexParameterfv( target, pname, fparams );	
 }
 
-OPENGL_API void WINAPI glGetTexParameterfv( GLenum target, GLenum pname, GLfloat *params )
+OPENGL_API void glGetTexParameterfv( GLenum target, GLenum pname, GLfloat *params )
 {
 	int targetIndex = UTIL_GLTextureTargettoInternalIndex( target );
 	if (targetIndex < 0 || targetIndex >= D3D_TEXTARGET_MAX) {
@@ -1395,7 +1395,7 @@ OPENGL_API void WINAPI glGetTexParameterfv( GLenum target, GLenum pname, GLfloat
 	}
 }
 
-OPENGL_API void WINAPI glGetTexParameteriv( GLenum target, GLenum pname, GLint *params )
+OPENGL_API void glGetTexParameteriv( GLenum target, GLenum pname, GLint *params )
 {
 	int targetIndex = UTIL_GLTextureTargettoInternalIndex( target );
 	if (targetIndex < 0 || targetIndex >= D3D_TEXTARGET_MAX) {
@@ -1427,7 +1427,7 @@ OPENGL_API void WINAPI glGetTexParameteriv( GLenum target, GLenum pname, GLint *
 	}
 }
 
-OPENGL_API void WINAPI glTexEnvfv( GLenum target, GLenum pname, const GLfloat *params )
+OPENGL_API void glTexEnvfv( GLenum target, GLenum pname, const GLfloat *params )
 {
 	switch (target) 
 	{
@@ -1657,12 +1657,12 @@ OPENGL_API void WINAPI glTexEnvfv( GLenum target, GLenum pname, const GLfloat *p
 	}
 }
 
-OPENGL_API void WINAPI glTexEnvf( GLenum target, GLenum pname, GLfloat param )
+OPENGL_API void glTexEnvf( GLenum target, GLenum pname, GLfloat param )
 {
 	glTexEnvfv( target, pname, &param );
 }
 
-OPENGL_API void WINAPI glTexEnviv( GLenum target, GLenum pname, const GLint *params )
+OPENGL_API void glTexEnviv( GLenum target, GLenum pname, const GLint *params )
 {
 	if (target == GL_TEXTURE_ENV) {
 		if (pname == GL_TEXTURE_ENV_COLOR) {
@@ -1686,12 +1686,12 @@ OPENGL_API void WINAPI glTexEnviv( GLenum target, GLenum pname, const GLint *par
 	glTexEnvfv( target, pname, fparams );
 }
 
-OPENGL_API void WINAPI glTexEnvi( GLenum target, GLenum pname, GLint param )
+OPENGL_API void glTexEnvi( GLenum target, GLenum pname, GLint param )
 {
 	glTexEnviv( target, pname, &param );
 }
 
-OPENGL_API void WINAPI glGetTexEnvfv( GLenum target, GLenum pname, GLfloat *params )
+OPENGL_API void glGetTexEnvfv( GLenum target, GLenum pname, GLfloat *params )
 {
 	switch (target) 
 	{
@@ -1782,7 +1782,7 @@ OPENGL_API void WINAPI glGetTexEnvfv( GLenum target, GLenum pname, GLfloat *para
 	}
 }
 
-OPENGL_API void WINAPI glGetTexEnviv( GLenum target, GLenum pname, GLint *params )
+OPENGL_API void glGetTexEnviv( GLenum target, GLenum pname, GLint *params )
 {
 	if (target != GL_TEXTURE_ENV) {
 		logPrintf("WARNING: glGetTexEnviv - unknown target 0x%x\n", target);
@@ -1809,7 +1809,7 @@ OPENGL_API void WINAPI glGetTexEnviv( GLenum target, GLenum pname, GLint *params
 	}
 }
 
-OPENGL_API void WINAPI glGetTexLevelParameterfv( GLenum target, GLint level, GLenum pname, GLfloat *params )
+OPENGL_API void glGetTexLevelParameterfv( GLenum target, GLint level, GLenum pname, GLfloat *params )
 {
 	D3DTextureObject *currentTexture( nullptr );
 
@@ -1838,14 +1838,14 @@ OPENGL_API void WINAPI glGetTexLevelParameterfv( GLenum target, GLint level, GLe
 	}	
 }
 
-OPENGL_API void WINAPI glGetTexLevelParameteriv( GLenum target, GLint level, GLenum pname, GLint *params )
+OPENGL_API void glGetTexLevelParameteriv( GLenum target, GLint level, GLenum pname, GLint *params )
 {
 	GLfloat fparam;
 	glGetTexLevelParameterfv( target, level, pname, &fparam );
 	params[0] = (GLint)fparam;
 }
 
-OPENGL_API void WINAPI glActiveTexture( GLenum texture )
+OPENGL_API void glActiveTexture( GLenum texture )
 {
 	int stageIndex = texture - GL_TEXTURE0_ARB;
 	if (stageIndex < 0 || stageIndex >= D3DGlobal.maxActiveTMU) {
@@ -1857,7 +1857,7 @@ OPENGL_API void WINAPI glActiveTexture( GLenum texture )
 	if (D3DState.TransformState.matrixMode == GL_TEXTURE)
 		D3DState_SetMatrixMode();
 }
-OPENGL_API void WINAPI glClientActiveTexture( GLenum texture )
+OPENGL_API void glClientActiveTexture( GLenum texture )
 {
 	int stageIndex = texture - GL_TEXTURE0_ARB;
 	if (stageIndex < 0 || stageIndex >= D3DGlobal.maxActiveTMU) {
@@ -1867,7 +1867,7 @@ OPENGL_API void WINAPI glClientActiveTexture( GLenum texture )
 	}
 	D3DState.ClientTextureState.currentClientTMU = stageIndex;
 }
-OPENGL_API void WINAPI glSelectTexture( GLenum texture )
+OPENGL_API void glSelectTexture( GLenum texture )
 {
 	int stageIndex = texture - GL_TEXTURE0_SGIS;
 	if (stageIndex < 0 || stageIndex >= D3DGlobal.maxActiveTMU) {

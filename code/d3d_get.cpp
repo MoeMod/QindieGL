@@ -32,7 +32,7 @@
 // essential if we use pure device that actually forbids any get requests
 //==================================================================================
 
-OPENGL_API const GLubyte * WINAPI glGetString( GLenum name )
+OPENGL_API const GLubyte * glGetString( GLenum name )
 {
 	if (!D3DGlobal.initialized)
 		return (GLubyte*)"";
@@ -49,7 +49,7 @@ OPENGL_API const GLubyte * WINAPI glGetString( GLenum name )
 	}
 }
 
-OPENGL_API GLenum WINAPI glGetError()
+OPENGL_API GLenum glGetError()
 {
 	if (SUCCEEDED(D3DGlobal.lastError))
 		return GL_NO_ERROR;
@@ -90,7 +90,7 @@ OPENGL_API GLenum WINAPI glGetError()
 	return oglErrorCode;
 }
 
-OPENGL_API HRESULT WINAPI glGetD3DError()
+OPENGL_API HRESULT glGetD3DError()
 {
 	return D3DGlobal.lastError;
 }
@@ -520,6 +520,9 @@ template<typename T> static void glGet( GLenum pname, T *params )
 	case GL_MAX_ELEMENTS_INDICES_EXT:
 		params[0] = (T)D3DGlobal.hD3DCaps.MaxVertexIndex;
 		break;
+	case GL_POLYGON_MODE:
+		params[0] = (T)(D3DState.PolygonState.fillMode - 1 + GL_POINT);
+		break;
 
 	default:
 		logPrintf("WARNING: glGet(0x%x) is not supported\n", pname);
@@ -530,27 +533,27 @@ template<typename T> static void glGet( GLenum pname, T *params )
 
 #pragma warning( default: 4310 )
 
-OPENGL_API void WINAPI glGetIntegerv( GLenum pname, GLint *params )
+OPENGL_API void glGetIntegerv( GLenum pname, GLint *params )
 {
 	glGet( pname, params );
 }
 
-OPENGL_API void WINAPI glGetBooleanv( GLenum pname, GLboolean *params )
+OPENGL_API void glGetBooleanv( GLenum pname, GLboolean *params )
 {
 	glGet( pname, params );
 }
 
-OPENGL_API void WINAPI glGetDoublev( GLenum pname, GLdouble *params )
+OPENGL_API void glGetDoublev( GLenum pname, GLdouble *params )
 {
 	glGet( pname, params );
 }
 
-OPENGL_API void WINAPI glGetFloatv( GLenum pname, GLfloat *params )
+OPENGL_API void glGetFloatv( GLenum pname, GLfloat *params )
 {
 	glGet( pname, params );
 }
 
-OPENGL_API void WINAPI glGetPointerv( GLenum pname, GLvoid* *params )
+OPENGL_API void glGetPointerv( GLenum pname, GLvoid* *params )
 {
 	switch (pname) {
 	case GL_SELECTION_BUFFER_POINTER:

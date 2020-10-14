@@ -28,7 +28,7 @@
 // Light operations
 //==================================================================================
 
-OPENGL_API void WINAPI glGetLightfv( GLenum light, GLenum pname, GLfloat *params )
+OPENGL_API void glGetLightfv( GLenum light, GLenum pname, GLfloat *params )
 {
 	int lightIndex = light - GL_LIGHT0;
 	if( lightIndex < 0 || lightIndex >= IMPL_MAX_LIGHTS ) {
@@ -89,7 +89,7 @@ OPENGL_API void WINAPI glGetLightfv( GLenum light, GLenum pname, GLfloat *params
 	}
 }
 
-OPENGL_API void WINAPI glGetLightiv( GLenum light, GLenum pname, GLint *params )
+OPENGL_API void glGetLightiv( GLenum light, GLenum pname, GLint *params )
 {
 	GLfloat fparams[4];
 	glGetLightfv( light, pname, fparams );
@@ -99,7 +99,7 @@ OPENGL_API void WINAPI glGetLightiv( GLenum light, GLenum pname, GLint *params )
 	params[3] =( GLint )fparams[3];
 }
 
-OPENGL_API void WINAPI glLightModelf( GLenum pname, GLfloat param )
+OPENGL_API void glLightModelf( GLenum pname, GLfloat param )
 {
 	switch( pname ) {
 	case GL_LIGHT_MODEL_LOCAL_VIEWER:
@@ -115,7 +115,7 @@ OPENGL_API void WINAPI glLightModelf( GLenum pname, GLfloat param )
 		return;
 	}
 }
-OPENGL_API void WINAPI glLightModelfv( GLenum pname, const GLfloat *params )
+OPENGL_API void glLightModelfv( GLenum pname, const GLfloat *params )
 {
 	switch( pname ) {
 	case GL_LIGHT_MODEL_AMBIENT:
@@ -131,11 +131,11 @@ OPENGL_API void WINAPI glLightModelfv( GLenum pname, const GLfloat *params )
 		return;
 	}
 }
-OPENGL_API void WINAPI glLightModeli( GLenum pname, GLint param )
+OPENGL_API void glLightModeli( GLenum pname, GLint param )
 {
 	glLightModelf( pname,( GLfloat )param );
 }
-OPENGL_API void WINAPI glLightModeliv( GLenum pname, const GLint *params )
+OPENGL_API void glLightModeliv( GLenum pname, const GLint *params )
 {
 	GLfloat fparams[4];
 	fparams[0] =( GLfloat )params[0];
@@ -144,7 +144,7 @@ OPENGL_API void WINAPI glLightModeliv( GLenum pname, const GLint *params )
 	fparams[3] =( GLfloat )params[3];
 	glLightModelfv( pname, fparams );
 }
-OPENGL_API void WINAPI glLightf( GLenum light, GLenum pname, GLfloat param )
+OPENGL_API void glLightf( GLenum light, GLenum pname, GLfloat param )
 {
 	int lightIndex = light - GL_LIGHT0;
 	if( lightIndex < 0 || lightIndex >= IMPL_MAX_LIGHTS ) {
@@ -175,7 +175,7 @@ OPENGL_API void WINAPI glLightf( GLenum light, GLenum pname, GLfloat param )
 		return;
 	}
 }
-OPENGL_API void WINAPI glLightfv( GLenum light, GLenum pname, const GLfloat *params )
+OPENGL_API void glLightfv( GLenum light, GLenum pname, const GLfloat *params )
 {
 	int lightIndex = light - GL_LIGHT0;
 	if( lightIndex < 0 || lightIndex >= IMPL_MAX_LIGHTS ) {
@@ -262,11 +262,11 @@ OPENGL_API void WINAPI glLightfv( GLenum light, GLenum pname, const GLfloat *par
 		return;
 	}
 }
-OPENGL_API void WINAPI glLighti( GLenum light, GLenum pname, GLint param )
+OPENGL_API void glLighti( GLenum light, GLenum pname, GLint param )
 {
 	glLightf( light, pname,( GLfloat )param );
 }
-OPENGL_API void WINAPI glLightiv( GLenum light, GLenum pname, const GLint *params )
+OPENGL_API void glLightiv( GLenum light, GLenum pname, const GLint *params )
 {
 	GLfloat fparams[4];
 	fparams[0] =( GLfloat )params[0];

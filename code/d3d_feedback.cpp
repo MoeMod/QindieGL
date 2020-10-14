@@ -29,7 +29,7 @@
 // TODO: emulate them in software
 //==================================================================================
 
-OPENGL_API GLint WINAPI glRenderMode( GLenum mode )
+OPENGL_API GLint glRenderMode( GLenum mode )
 {
 	switch (mode) {
 	default:
@@ -44,32 +44,32 @@ OPENGL_API GLint WINAPI glRenderMode( GLenum mode )
 	}
 }
 
-OPENGL_API void WINAPI glFeedbackBuffer( GLsizei, GLenum, GLfloat* )
+OPENGL_API void glFeedbackBuffer( GLsizei, GLenum, GLfloat* )
 {
 	logPrintf("WARNING: unimplemented function - glFeedbackBuffer\n");
 }
-OPENGL_API void WINAPI glPassThrough( GLfloat )
+OPENGL_API void glPassThrough( GLfloat )
 {
 	logPrintf("WARNING: unimplemented function - glPassThrough\n");
 }
 
-OPENGL_API void WINAPI glSelectBuffer( GLsizei, GLuint* )
+OPENGL_API void glSelectBuffer( GLsizei, GLuint* )
 {
 	logPrintf("WARNING: unimplemented function - glSelectBuffer\n");
 }
-OPENGL_API void WINAPI glInitNames()
+OPENGL_API void glInitNames()
 {
 	logPrintf("WARNING: unimplemented function - glInitNames\n");
 }
-OPENGL_API void WINAPI glLoadName( GLuint )
+OPENGL_API void glLoadName( GLuint )
 {
 	logPrintf("WARNING: unimplemented function - glLoadName\n");
 }
-OPENGL_API void WINAPI glPushName( GLuint )
+OPENGL_API void glPushName( GLuint )
 {
 	logPrintf("WARNING: unimplemented function - glPushName\n");
 }
-OPENGL_API void WINAPI glPopName()
+OPENGL_API void glPopName()
 {
 	logPrintf("WARNING: unimplemented function - glPopName\n");
 }
